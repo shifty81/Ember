@@ -1,0 +1,84 @@
+{
+  "schema": "havenwild.native_editor.workspace_shell.v0_1",
+  "pass": "167Z89",
+  "application": "apps/haven_editor_native",
+  "offlineRequired": true,
+  "layoutPersistence": {
+    "path": "WORKSPACE/editor/native_workspace_layout_v0_1.json",
+    "format": "json",
+    "machineLocal": true,
+    "resettable": true,
+    "fields": [
+      "leftPanelVisible",
+      "rightPanelVisible",
+      "bottomDockOpen",
+      "bottomDockTab",
+      "leftPanelWidth",
+      "rightPanelWidth",
+      "bottomDockHeight"
+    ]
+  },
+  "shell": {
+    "menuBar": "fixed top row",
+    "documentBar": "fixed second row with active and dirty document state",
+    "leftPanel": "project, world tree, or source asset list for the active document",
+    "center": "tabbed authoring canvas",
+    "rightPanel": "selection-aware inspector and properties",
+    "bottomDock": {
+      "behavior": "overlay; opening or closing does not resize the center canvas",
+      "tabs": [
+        "Console",
+        "Validation",
+        "Imports",
+        "Build",
+        "Tasks"
+      ]
+    },
+    "statusBar": "fixed bottom row with message, saved/modified state, undo/redo depth, validation state, and bottom-panel toggle",
+    "resizableSplitters": [
+      "Project panel width",
+      "Inspector width",
+      "Bottom dock height"
+    ]
+  },
+  "documentTabs": [
+    "World Routes",
+    "World Editor",
+    "Scene Bank",
+    "Scene Editor",
+    "Pixel Studio",
+    "Animation Studio",
+    "Character Studio"
+  ],
+  "panelRules": [
+    "Project and Inspector panels can be hidden independently without replacing the active document.",
+    "Bottom panels overlay the canvas instead of resizing it when toggled.",
+    "Project, Inspector, and bottom-dock splitters resize interactively and save their normalized dimensions.",
+    "The status bar remains visible regardless of panel visibility.",
+    "Panel visibility and dimensions persist locally and never become game-save authority.",
+    "Editor shell state does not require network access."
+  ],
+  "shortcuts": {
+    "Ctrl+J": "toggle bottom panels",
+    "Ctrl+Shift+L": "toggle project panel",
+    "Ctrl+Shift+I": "toggle inspector",
+    "Ctrl+S or F5": "save all documents",
+    "Ctrl+Z or Ctrl+Y": "undo or redo",
+    "Tab": "cycle authoring documents"
+  },
+  "buildRepair": {
+    "file": "crates/haven_game/src/runtime_surface_streaming.rs",
+    "rule": "test modules remain after production impl items",
+    "lint": "clippy::items_after_test_module",
+    "suppressionAllowed": false
+  },
+  "nextEditorLanes": [
+    "Continuous Alderreach world-authoring canvas",
+    "Unified selection and inspector authority",
+    "Semantic asset browser and promotion review",
+    "Elevation sculpting and structural cliff authoring",
+    "PCG Studio preview and commit workflow",
+    "Sprite/Pixel and animation publishing",
+    "Play From Here and local live reload"
+  ]
+}

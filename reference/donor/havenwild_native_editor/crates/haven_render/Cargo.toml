@@ -1,0 +1,12 @@
+[package]
+name = "haven_render"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+haven_assets = { path = "../haven_assets" }
+haven_core = { path = "../haven_core" }
+haven_world = { path = "../haven_world" }
+haven_authoring = { path = "../haven_authoring" }
+macroquad.workspace = true

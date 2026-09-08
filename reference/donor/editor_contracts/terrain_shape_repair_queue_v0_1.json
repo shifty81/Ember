@@ -1,0 +1,255 @@
+{
+  "schema": "havenwild.editor.terrain_shape_repair_queue.v0_1",
+  "revision": "167Z109F-full-v7-elizawy-shape-map-v1",
+  "tileSize": [
+    32,
+    32
+  ],
+  "authority": {
+    "semanticTerrainOwnsGameplay": true,
+    "rawThirdPartySourcesAreReadOnly": true,
+    "publishedOutputsRequireStableIds": true,
+    "creditsRequiredPerSourceComponent": true,
+    "crossStylePixelMixingForbidden": true
+  },
+  "shapeSystems": {
+    "cornerTuple16": {
+      "useFor": "two-material semantic ground boundaries resolved at four-cell intersections",
+      "requiredMasks": [
+        "fill_a",
+        "fill_b",
+        "edge_n",
+        "edge_e",
+        "edge_s",
+        "edge_w",
+        "outer_ne",
+        "outer_se",
+        "outer_sw",
+        "outer_nw",
+        "inner_ne",
+        "inner_se",
+        "inner_sw",
+        "inner_nw",
+        "isolated_a",
+        "isolated_b"
+      ]
+    },
+    "blob47": {
+      "useFor": "same-family paths, walls, floors, banks, and constructed assemblies",
+      "requiredCoverage": [
+        "isolated",
+        "four_ends",
+        "four_straights",
+        "four_outer_corners",
+        "four_inner_corners",
+        "four_t_junctions",
+        "cross",
+        "narrow_horizontal",
+        "narrow_vertical",
+        "diagonal_cleanup",
+        "single_missing_neighbor_variants",
+        "multi_inner_corner_variants"
+      ]
+    },
+    "structuralCliffRecipe": {
+      "useFor": "height-derived multi-cell cliff structures; never ordinary ground paint",
+      "requiredCoverage": [
+        "top_caps",
+        "face_segments",
+        "outer_corners",
+        "inner_corners",
+        "concave_notches",
+        "convex_points",
+        "stacked_faces",
+        "ends",
+        "ramps",
+        "stairs",
+        "ladders",
+        "cave_mouths",
+        "water_facing_faces",
+        "waterfalls",
+        "bridge_sockets"
+      ]
+    }
+  },
+  "repairItems": [
+    {
+      "id": "terrain.rock_ground.native_boundaries",
+      "displayName": "Rock Ground native boundaries",
+      "priority": "critical",
+      "currentState": "V7 direct-pair matrix is now authoritative. Rock_Dark has complete 14-shape direct pairs with Dirt_Brown, Dirt_Roots, Gravel_1 and other authored contacts; Grass/Rock_Dark and Sand/Rock_Dark are explicitly absent and must use a semantic staged shoulder rather than an invented direct tuple.",
+      "system": "cornerTuple16",
+      "contacts": [
+        "Grass",
+        "Dirt",
+        "MountainPath",
+        "Sand",
+        "Mud",
+        "Road"
+      ],
+      "workflowOutput": "content/assets/terrain/havenwild/rock_ground_transitions.png"
+    },
+    {
+      "id": "terrain.stone_path.lowland_boundaries",
+      "displayName": "Stone Path lowland boundaries",
+      "priority": "high",
+      "currentState": "Stone_Tan lacks complete direct contacts to Dirt_Brown and Grass; civic apron is a safe runtime normalization",
+      "system": "cornerTuple16",
+      "contacts": [
+        "Road",
+        "Dirt",
+        "Grass",
+        "Gravel"
+      ],
+      "workflowOutput": "content/assets/terrain/havenwild/stone_path_transitions.png"
+    },
+    {
+      "id": "terrain.gravel.native_boundaries",
+      "displayName": "Gravel native boundaries",
+      "priority": "high",
+      "currentState": "V7 direct-pair coverage is fully cataloged. Gravel_1 direct contacts are either complete 14-shape pairs or explicitly absent; Grass/Gravel_1 is absent and must use a staged transition, while Mud_Brown/Gravel_1 and Rock_Dark/Gravel_1 are complete.",
+      "system": "cornerTuple16",
+      "contacts": [
+        "Grass",
+        "Sand",
+        "Dirt",
+        "Mud",
+        "Water",
+        "RockGround"
+      ],
+      "workflowOutput": "content/assets/terrain/havenwild/gravel_transitions.png"
+    },
+    {
+      "id": "terrain.mud.native_boundaries",
+      "displayName": "Mud native boundaries",
+      "priority": "high",
+      "currentState": "V7 direct-pair coverage is fully cataloged. Mud_Brown/Grass and Mud_Brown/Gravel_1 are complete 14-shape pairs; missing contacts such as Mud_Brown/Sand are explicitly absent instead of treated as unknown.",
+      "system": "cornerTuple16",
+      "contacts": [
+        "Grass",
+        "Dirt",
+        "Sand",
+        "Soil",
+        "Water",
+        "Gravel"
+      ],
+      "workflowOutput": "content/assets/terrain/havenwild/mud_transitions.png"
+    },
+    {
+      "id": "terrain.mountain_path.highland_boundaries",
+      "displayName": "Highland shoulder and Mountain Path boundaries",
+      "priority": "critical",
+      "currentState": "V7 pair coverage is explicit. Dirt_Roots/Rock_Dark is a complete 14-shape pair and remains the preferred highland shoulder; missing direct Rock_Dark/Grass and Rock_Dark/Sand contacts are now explicit staged-transition cases.",
+      "system": "cornerTuple16",
+      "contacts": [
+        "RockGround",
+        "Grass",
+        "Dirt",
+        "Road",
+        "Sand"
+      ],
+      "workflowOutput": "content/assets/terrain/havenwild/highland_path_transitions.png"
+    },
+    {
+      "id": "terrain.cave_floor.boundaries",
+      "displayName": "Cave Floor boundaries",
+      "priority": "medium",
+      "currentState": "quiet fill is available; complete cave assembly transitions are not certified",
+      "system": "cornerTuple16",
+      "contacts": [
+        "CaveWall",
+        "RockGround",
+        "Mud",
+        "Water"
+      ],
+      "workflowOutput": "content/assets/terrain/havenwild/cave_floor_transitions.png"
+    },
+    {
+      "id": "terrain.constructed_floor_wall_sets",
+      "displayName": "Constructed floor and wall autotiles",
+      "priority": "high",
+      "currentState": "several entries remain generated or require LPC semantic promotion",
+      "system": "blob47",
+      "contacts": [
+        "WoodFloor",
+        "PlankFloor",
+        "StoneFloor",
+        "BrickFloor",
+        "Wall",
+        "CaveWall",
+        "Bridge"
+      ],
+      "workflowOutput": "content/assets/structures/havenwild/constructed_autotiles.png"
+    },
+    {
+      "id": "terrain.elizawy_structural_cliffs",
+      "displayName": "ElizaWy seasonal structural cliffs",
+      "priority": "critical",
+      "currentState": "Full 224-cell seasonal sheet map complete: 164 occupied cells assigned to connected assemblies, 60 empty cells explicit, all 15 structural masks and collision semantics mapped. Special ramp/alternate assembly runtime promotion remains acceptance-gated.",
+      "system": "structuralCliffRecipe",
+      "contacts": [
+        "RockGround",
+        "Grass",
+        "Water",
+        "CaveEntrance",
+        "Bridge",
+        "Ramp"
+      ],
+      "workflowOutput": "content/worldgen/cliff_authoring_contract_v0_1.json"
+    },
+    {
+      "id": "terrain.oga_lpc_cliff_traversal_assemblies",
+      "displayName": "OGA LPC cliff ramps, ladder, cave, pillar, and rope bridge",
+      "priority": "critical",
+      "currentState": "reviewed fixed assemblies are editor/runtime stamps; ramps and ladder open matching structural movement edges",
+      "system": "structuralCliffRecipe",
+      "contacts": [
+        "StructuralCliff",
+        "MountainRock",
+        "MountainPath",
+        "CaveEntrance",
+        "Bridge"
+      ],
+      "workflowOutput": "content/assets/oga_lpc/manifests/oga_lpc_cliff_recipe_catalog_v0_2.json"
+    },
+    {
+      "id": "terrain.oga_grass_top_cliff_traversal",
+      "label": "OGA Grass-Top Cliff Faces and Traversal Attachments",
+      "priority": "critical",
+      "currentIssue": "First south-facing cells are runtime-active; complete corners, automatic ramp hosts, ladder sockets, and bridge path binding remain incomplete.",
+      "template": "structural_cliff_recipe",
+      "sourcePolicy": "read_only_source_sheet_complete_cells_only",
+      "requiredShapes": [
+        "south_face_top",
+        "vertical_repeat",
+        "exposed_base",
+        "west_side_lip",
+        "east_side_lip",
+        "outer_corner_left",
+        "outer_corner_right",
+        "inner_corner_left",
+        "inner_corner_right",
+        "ramp_left_host",
+        "ramp_right_host",
+        "ladder_host",
+        "cave_host",
+        "bridge_socket"
+      ],
+      "runtimeState": "partial_active_requires_completion"
+    }
+  ],
+  "acceptance": [
+    "3x3 and 5x5 random seam previews contain no square owner-fill leaks",
+    "all outer and inner corners remain source-consistent",
+    "runtime and native editor resolve the same stable tuple id",
+    "painting across storage partitions produces identical results",
+    "no source image is overwritten",
+    "published atlas, metadata, validation scene, and attribution record are committed together"
+  ],
+  "mappingAuthority": {
+    "shapeGrammar": "content/worldgen/terrain_shape_grammar_v0_1.json",
+    "v7FullShapeCatalog": "content/worldgen/v7_terrain_full_shape_catalog_v0_1.json",
+    "elizawyCliffSheetCatalog": "content/worldgen/elizawy_cliff_sheet_role_catalog_v0_1.json",
+    "rule": "Unknown transition coverage is no longer allowed. V7 material pairs are explicitly complete (14 mixed patterns) or absent; ElizaWy occupied cliff cells are all assigned to connected assembly windows."
+  }
+}

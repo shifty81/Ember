@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ember.cortex.tool-request.v1",
+  "type": "object",
+  "required": ["id", "tool", "project_root"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "tool": {"type": "string", "minLength": 1},
+    "project_root": {"type": "string", "minLength": 1},
+    "arguments": {"type": "object"},
+    "trace_id": {"type": ["string", "null"]},
+    "approval_token": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,9 @@
+/target/
+/artifacts/
+/logs/
+/.ember/
+*.tmp
+*.bak
+*.user
+.DS_Store
+Thumbs.db

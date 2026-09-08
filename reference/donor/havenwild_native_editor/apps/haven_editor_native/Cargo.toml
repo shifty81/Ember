@@ -1,0 +1,18 @@
+[package]
+name = "haven_editor_native"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+haven_assets = { path = "../../crates/haven_assets" }
+haven_core = { path = "../../crates/haven_core" }
+haven_editor = { path = "../../crates/haven_editor" }
+haven_pixel = { path = "../../crates/haven_pixel" }
+haven_render = { path = "../../crates/haven_render" }
+haven_save = { path = "../../crates/haven_save" }
+haven_world = { path = "../../crates/haven_world" }
+macroquad.workspace = true
+image = "0.24"
+serde.workspace = true
+serde_json.workspace = true

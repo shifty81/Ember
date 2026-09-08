@@ -1,0 +1,22 @@
+{
+  "schema": "havenwild.native_editor.text_stability.v0_1",
+  "pass": "167Z106",
+  "issue": "Native editor glyphs intermittently rendered nearly black on dark panels even though theme text colors remained light.",
+  "authority": {
+    "fontAtlas": "dedicated_editor_ui_font",
+    "preferredWindowsFont": "%WINDIR%/Fonts/segoeui.ttf",
+    "fallbackWindowsFonts": [
+      "%WINDIR%/Fonts/segoeuisl.ttf",
+      "%WINDIR%/Fonts/arial.ttf"
+    ],
+    "fontRedistributedByProject": false,
+    "macroquadBuiltInFontAllowedAfterInitialization": false,
+    "allEditorDrawTextRoutesUseWrapper": true,
+    "allEditorMeasureTextRoutesUseWrapper": true
+  },
+  "performanceRepairs": {
+    "slowFrameLogMinimumIntervalSeconds": 5.0,
+    "structuralEdgeLookup": "partition_indexed_o1",
+    "reason": "Repeated per-frame log file open/flush and per-cell scans across every Alderreach storage partition amplified editor stalls."
+  }
+}

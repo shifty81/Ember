@@ -1,0 +1,99 @@
+{
+  "schema": "havenwild.editor.pixel_studio_cliff_workflow.v0_2",
+  "revision": "167Z104-source-grid-and-multi-cell-footprint-normalization-v3+167Z105-topology-certification",
+  "purpose": "Create, validate, and publish complete multi-cell cliff recipes without editing third-party source sheets in place.",
+  "sourcePolicy": {
+    "thirdPartySheetsReadOnly": true,
+    "completeSourceCellsOnlyForRuntimePromotion": true,
+    "quadrantSynthesisForbidden": true,
+    "crossStylePixelMixingForbidden": true,
+    "modifiedDerivativesPublishAsHavenwildOwnedOutputs": true,
+    "retainSourceHashLicenseAndAttribution": true
+  },
+  "documentSetup": {
+    "tileSize": [
+      32,
+      32
+    ],
+    "gridLocked": true,
+    "transparentPaddingLocked": true,
+    "workingLayers": [
+      "00_source_reference_read_only",
+      "10_semantic_height_mask",
+      "20_top_caps",
+      "30_vertical_faces",
+      "40_inner_outer_corners",
+      "50_traversal_attachments",
+      "60_cave_waterfall_bridge_sockets",
+      "80_collision_and_anchor_preview",
+      "90_diagnostics_not_exported"
+    ],
+    "canvasModel": {
+      "leftPanel": "read-only source atlas on the exact 32x32 game grid; Ctrl+click selects multiple source cells or drag-selects a rectangular source region",
+      "rightPanel": "Havenwild-owned assembly canvas on the same world-cell scale; selected source regions load here for non-destructive recipe authoring",
+      "sourcePixelsMutable": false,
+      "gridAlignmentMutableViaProtectedAtlasRealignmentMode": true,
+      "sourceSelectionDoesNotDefineWorldFootprint": true
+    }
+  },
+  "recipeWorkflow": [
+    "Open the source sheet through the semantic Asset Palette in read-only mode.",
+    "Use the 32x32 grid only to address cells; select the complete authored multi-cell source region needed by the feature.",
+    "Load the selected region into the separate Havenwild working/assembly canvas without modifying the source layer.",
+    "Record sourceGridSpan and sourceRectPx independently from worldVisualFootprintTiles.",
+    "Author structuralHostMask, collisionEdgeMask, traversalEdgeMask, anchor, draw order, and occlusion independently from the visual source envelope.",
+    "Assign a role such as face repeat, corner, side face, cave host, ladder, ramp, bridge socket, water-facing face, or waterfall host only after the complete visual assembly is inspected.",
+    "Preview the recipe against discrete Level 0-2 platform boundaries and large canonical formations, never against smooth painted height.",
+    "Publish atlas/recipe metadata, thumbnail, acceptance fixture, runtime binding, source hash, license, and credits atomically."
+  ],
+  "requiredPreviewFixtures": [
+    "raw_height_noise_inside_one_structural_tier",
+    "one_level_straight_south_face",
+    "two_to_four_level_stacked_face",
+    "west_and_east_side_lips",
+    "outer_left_and_outer_right_corner",
+    "inner_left_and_inner_right_corner",
+    "one_tile_neck_and_isolated_pillar",
+    "left_ramp_and_right_ramp",
+    "ladder_north_south_crossing",
+    "cave_mouth_host",
+    "water_facing_cliff_and_waterfall_socket",
+    "rope_bridge_socket",
+    "cross_partition_seam",
+    "season_switch_geometry_parity"
+  ],
+  "currentProviders": [
+    {
+      "id": "oga_lpc_grass_top_cliffs",
+      "state": "quarantined_multi_cell_source_assemblies_audited_runtime_recipes_empty",
+      "recipe": "content/assets/oga_lpc/manifests/oga_lpc_cliff_recipe_catalog_v0_2.json"
+    },
+    {
+      "id": "elizawy_seasonal_cliffs",
+      "state": "seasonal_geometry_audited_multi_cell_recipe_certification_pending",
+      "recipe": "content/worldgen/elizawy_cliff_sheet_role_catalog_v0_1.json"
+    }
+  ],
+  "publishGate": [
+    "runtime_and_native_editor_use_the_same_stable_recipe_ids",
+    "all_required_preview_fixtures_pass",
+    "movement_collision_matches_visible_height_edges",
+    "ramp_and_ladder_open_only_their_validated_edges",
+    "source_and_derivative_credits_are_complete",
+    "no_unresolved_topology_silently_uses_unrelated_pixels",
+    "raw_height_noise_cannot_create_tile_by_tile_invisible_cliff_collision",
+    "partial_source_halves_cannot_be_repeated_as_standalone_cliff_tiles",
+    "source_grid_span_cannot_be_used_as_world_visual_footprint_without_explicit_recipe_metadata",
+    "rocks_cliffs_object_sheet_cannot_be_selected_as_structural_cliff_provider",
+    "waterfall_frames_publish_as_complete_animated_multi_cell_connectors_not_independent_cells"
+  ],
+  "measurementAuthority": "content/worldgen/cliff_asset_footprint_recipe_normalization_v0_1.json",
+  "z105TopologyCertification": "content/worldgen/elizawy_cliff_topology_certification_v0_1.json",
+  "z105AcceptanceScene": "content/worldgen/cliff_topology_acceptance_scene_v0_1.json",
+  "topologyCertificationWorkflow": [
+    "Show source-grid span and world visual footprint as separate overlays.",
+    "For multi-cell features, selection publishes only after the complete visual envelope is outlined.",
+    "Structural-host, collision and traversal overlays remain separate authoring channels and may stay pending while visual geometry is certified.",
+    "Display a red Runtime Quarantined badge until every required acceptance-scene case is complete."
+  ]
+}

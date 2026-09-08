@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "pass": "O2D-R051R16V6A",
+  "product_name": "Ember",
+  "promoted_app": "apps/ember_editor_native",
+  "reference_app": "apps/haven_editor_native",
+  "runtime_library": "crates/ember_runtime",
+  "runtime_host_future_label": "Ember Player / Runtime Host",
+  "preserve_reference_until_parity": true,
+  "infinite_canvas": true,
+  "cortex_bridge": true,
+  "image_generation_to_canvas": true,
+  "forbid_havenwild_gameplay_assumptions_in_active_ember": true
+}

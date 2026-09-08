@@ -1,0 +1,117 @@
+{
+  "schema": "havenwild.architecture.rust_file_size_allowlist.v1",
+  "default_max_lines": 750,
+  "entrypoint_max_lines": 150,
+  "exceptions": [
+    {
+      "path": "apps/haven_editor_native/src/app/mod.rs",
+      "max_lines": 762,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Native editor application coordinator; split startup/session, workspace routing, and panel registration. No growth allowed before extraction."
+    },
+    {
+      "path": "apps/haven_editor_native/src/app/object_inspector.rs",
+      "max_lines": 930,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Inspector aggregate; split property models, editors, validation, and presentation. No growth allowed before extraction."
+    },
+    {
+      "path": "apps/haven_editor_native/src/app/pixel_studio_input.rs",
+      "max_lines": 839,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Pixel Studio input aggregate; split tool dispatch, selection, transforms, and timeline input. No growth allowed before extraction."
+    },
+    {
+      "path": "apps/haven_editor_native/src/app/pixel_studio_render.rs",
+      "max_lines": 964,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Pixel Studio rendering aggregate; split canvas, overlays, timeline, panels, and tool previews. No growth allowed before extraction."
+    },
+    {
+      "path": "apps/haven_editor_native/src/app/render_helpers.rs",
+      "max_lines": 893,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Native editor helper aggregate; split shared primitives, text/layout, and domain-specific helpers. No growth allowed before extraction."
+    },
+    {
+      "path": "crates/haven_assets/src/lpc_mapped_terrain.rs",
+      "max_lines": 753,
+      "target_lines": 500,
+      "reason": "Pass 167Z40 baseline certification: authored LPC tuple resolver is three lines above the general limit after water-authority restoration. No growth allowed before source-selection and diagnostics extraction.",
+      "semantic_growth_allowed": false
+    },
+    {
+      "path": "crates/haven_core/src/foundation.rs",
+      "max_lines": 1796,
+      "target_lines": 700,
+      "reason": "Pass 167Z10 baseline lock: Core tile/object/map aggregate; extract terrain definitions, map state, and object contracts into domain modules. No growth allowed before extraction."
+    },
+    {
+      "path": "crates/haven_editor/src/lib.rs",
+      "max_lines": 1110,
+      "target_lines": 700,
+      "reason": "Pass 51 extracted the editor facade tests into lib_tests.rs while adding only thin live-autotile exports and validation routing. Remaining inspection/validation implementations are locked against growth pending domain extraction."
+    },
+    {
+      "path": "crates/haven_game/src/asset_reference_browser_panel.rs",
+      "max_lines": 981,
+      "target_lines": 500,
+      "reason": "Pass 167Z16 rustfmt-normalized Windows baseline: runtime developer panel debt scheduled for browser model/view split. The one-line increase is formatter-only; no further growth allowed.",
+      "format_baseline": "rustfmt-1.x-windows",
+      "semantic_growth_allowed": false
+    },
+    {
+      "path": "crates/haven_game/src/client_frontend.rs",
+      "max_lines": 2065,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Client frontend coordinator; split title flow, world creation, character creation, pause, and runtime HUD state. No growth allowed before extraction."
+    },
+    {
+      "path": "crates/haven_game/src/main.rs",
+      "max_lines": 459,
+      "target_lines": 150,
+      "reason": "Legacy runtime entrypoint; permitted temporarily while game host extraction is queued. No growth allowed."
+    },
+    {
+      "path": "crates/haven_game/src/runtime_draw.rs",
+      "max_lines": 818,
+      "target_lines": 500,
+      "reason": "Pass 167Z10 baseline lock: Runtime draw coordinator; continue extracting discrete render passes and frame assembly. No growth allowed before extraction."
+    },
+    {
+      "path": "crates/haven_game/src/runtime_terrain_pass.rs",
+      "max_lines": 850,
+      "target_lines": 500,
+      "reason": "Pass 167Z16 rustfmt-normalized Windows baseline: terrain render-pass aggregate; split visibility planning, transition resolution, and submission. Four added physical lines are formatter-only; no further growth allowed.",
+      "format_baseline": "rustfmt-1.x-windows",
+      "semantic_growth_allowed": false
+    },
+    {
+      "path": "crates/haven_game/src/terrain_render.rs",
+      "max_lines": 1100,
+      "target_lines": 500,
+      "reason": "Pass 167Z16 rustfmt-normalized Windows baseline: terrain rendering helpers; split source binding, material resolution, transition ownership, and diagnostics. Fifty added physical lines are formatter-only; no further growth allowed.",
+      "format_baseline": "rustfmt-1.x-windows",
+      "semantic_growth_allowed": false
+    },
+    {
+      "path": "crates/haven_game/src/transition_rule_editor_panel.rs",
+      "max_lines": 776,
+      "target_lines": 500,
+      "reason": "Existing runtime developer panel debt. No growth allowed."
+    },
+    {
+      "path": "crates/haven_world/src/autotile/shoreline_resolver.rs",
+      "max_lines": 756,
+      "target_lines": 500,
+      "reason": "Pass 167Z40 baseline certification: shoreline lifecycle resolver is six lines above the general limit after freshwater/marine contour stabilization. No growth allowed before hydrology and contour extraction.",
+      "semantic_growth_allowed": false
+    },
+    {
+      "path": "crates/haven_world/src/autotile/transition_rule_draft.rs",
+      "max_lines": 1919,
+      "target_lines": 700,
+      "reason": "Legacy transition-rule draft aggregate awaiting resolver/editor/test separation. No growth allowed."
+    }
+  ]
+}

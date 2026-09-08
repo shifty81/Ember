@@ -1,0 +1,37 @@
+{
+  "schema": "havenwild.pixel_studio.victorian_building_authoring.v0_1",
+  "revision": "167Z106N5-victorian-building-source-family-v1",
+  "sourceFamily": "content/assets/lpc/victorian_building_source_family_v0_1.json",
+  "workspace": {
+    "leftPanel": "read_only_source_sheet",
+    "rightPanel": "havenwild_owned_working_assembly",
+    "worldCellPx": [
+      32,
+      32
+    ]
+  },
+  "selection": {
+    "singleCellClick": true,
+    "multiCellCtrlClick": true,
+    "dragRegion": true,
+    "selectionDoesNotImplyFootprint": true
+  },
+  "publishStages": [
+    "select_complete_visual_region",
+    "create_working_copy",
+    "assign_visual_footprint",
+    "assign_structural_host_footprint",
+    "author_wall_roof_door_window_sockets",
+    "author_collision_and_occlusion",
+    "assign_style_and_palette_family",
+    "validate_seams_and_building_composition",
+    "publish_certified_component"
+  ],
+  "prohibitions": [
+    "modify_third_party_source_pixels_in_place",
+    "publish_uncertified_32x32_fragments",
+    "infer_collision_from_alpha_bounds",
+    "stretch_narrow_openings_into_wide_variants"
+  ],
+  "runtimeGate": "Player World Builder and PCG only see certified published components, never raw source sheets."
+}

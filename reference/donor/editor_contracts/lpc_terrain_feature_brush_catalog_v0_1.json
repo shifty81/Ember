@@ -1,0 +1,140 @@
+{
+  "schema": "havenwild.editor.lpc_terrain_feature_brush_catalog.v0_1",
+  "version": "0.2.0",
+  "sourceAuthority": "content/assets/lpc/lpc_revised_terrain_family_authority_v0_1.json",
+  "sourceRoot": "assets/source/licensed/lpc_revised/Terrain",
+  "rules": {
+    "exactSourceSelection": true,
+    "recordSourceRect": true,
+    "preserveCredits": true,
+    "noProceduralArtReplacement": true,
+    "seasonLockedPerScene": true,
+    "sourceGridCellIsIndependentPlaceableAsset": false,
+    "multiCellRecipeAuthority": "content/worldgen/cliff_asset_footprint_recipe_normalization_v0_1.json"
+  },
+  "brushGroups": [
+    {
+      "id": "ground_and_water",
+      "mode": "terrain_tuple",
+      "sources": [
+        "terrain_spring.png",
+        "terrain_summer.png",
+        "terrain_autumn.png",
+        "terrain_winter.png",
+        "terrain_winter_ice.png"
+      ],
+      "roles": [
+        "ground",
+        "banks",
+        "shallows",
+        "water",
+        "depth",
+        "wet_sand"
+      ]
+    },
+    {
+      "id": "levels_and_cliff_recipes",
+      "mode": "structural_cliff_recipe",
+      "sources": [
+        "cliff_spring.png",
+        "cliff_summer.png",
+        "cliff_autumn.png",
+        "cliff_winter.png",
+        "cliff_winter_ice.png"
+      ],
+      "roles": [
+        "cliff_boundary_recipe",
+        "inside_corner",
+        "outside_corner",
+        "side_face",
+        "cave_host",
+        "ladder_or_climb_face",
+        "water_facing_cliff"
+      ],
+      "placementRule": "select a normalized multi-cell recipe; never stamp one raw source cell as a complete cliff asset"
+    },
+    {
+      "id": "trees",
+      "mode": "natural_object",
+      "sources": [
+        "trees_spring.png",
+        "trees_summer.png",
+        "trees_autumn.png",
+        "trees_winter.png"
+      ],
+      "roles": [
+        "tree",
+        "trunk",
+        "stump",
+        "seasonal_tree"
+      ]
+    },
+    {
+      "id": "plants_flowers_and_foraging",
+      "mode": "natural_object_or_clutter",
+      "sources": [
+        "plants_spring.png",
+        "plants_summer.png",
+        "plants_autumn.png",
+        "plants_winter.png",
+        "flowers.png",
+        "mushrooms.png",
+        "wildflowers_spring.png",
+        "wildflowers_summer.png",
+        "wildflowers_autumn.png",
+        "wildflowers_winter.png"
+      ],
+      "roles": [
+        "bush",
+        "plant",
+        "flower",
+        "wildflower",
+        "mushroom",
+        "herb",
+        "forage"
+      ]
+    },
+    {
+      "id": "rocks",
+      "mode": "natural_object_component",
+      "sources": [
+        "Rocks, Grasslands.png",
+        "Rocks, Cliffs.png"
+      ],
+      "roles": [
+        "boulder",
+        "rock_cluster",
+        "cliff_debris",
+        "resource_node"
+      ],
+      "placementRule": "connected object component with explicit footprint; never resolves structural levels"
+    },
+    {
+      "id": "farm_ground",
+      "mode": "player_authored_terrain",
+      "sources": [
+        "tilled_soil.png"
+      ],
+      "roles": [
+        "tilled_soil",
+        "watered_soil",
+        "farm_edge",
+        "farm_corner"
+      ]
+    },
+    {
+      "id": "water_features",
+      "mode": "animated_water_connector_or_terrain",
+      "sources": [
+        "Waterfall.png",
+        "ice-shallows.png"
+      ],
+      "roles": [
+        "waterfall",
+        "waterfall_foam",
+        "ice_shallows"
+      ],
+      "placementRule": "Waterfall.png requires a complete animated multi-cell connector recipe and cliff host; ice-shallows may remain terrain"
+    }
+  ]
+}

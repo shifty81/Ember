@@ -1,0 +1,66 @@
+{
+  "schema": "havenwild.structural_archipelago_workspace.v003",
+  "phase": "alderreach_8x5_continuous_surface_authority",
+  "scene_accounting": {
+    "generated_exterior_scene_cells": 63,
+    "existing_authored_and_interior_scenes": 9,
+    "expected_world_scene_total_after_generation": 72,
+    "landmass_count": 10,
+    "alderreach_scene_cells": 40,
+    "legacy_mainland_scene_cells": 20
+  },
+  "pcg_layers_enabled": [
+    "deep_water",
+    "shallow_water",
+    "sand",
+    "grass",
+    "mountain_rock",
+    "roads",
+    "vegetation",
+    "resources",
+    "capital_and_harbor_reservations"
+  ],
+  "pcg_layers_deferred": [
+    "rendered_structural_cliffs",
+    "promoted_building_stamps",
+    "harbor_props",
+    "biome_specific_decoration"
+  ],
+  "workspace_roles": {
+    "world_routes": "Seeded collision-safe archipelago overview assembled from actual editable scene maps with persistent harbor-to-harbor ship routes.",
+    "overworld_layout": "Selected-island scene-cell assembly grid with collision-checked cell movement.",
+    "scene_editor": "Per-scene terrain, object, zone, and transition authoring.",
+    "scene_bank": "Interiors, caves, dungeons, and reusable off-world scene documents."
+  },
+  "save_all_outputs": [
+    "project metadata",
+    "shareable archipelago world seed and reroll index",
+    "scene rectangle manifest",
+    "scene rectangle assignments",
+    "harbor route catalog",
+    "editable world save",
+    "assembled island PNG previews"
+  ],
+  "assembly_controls": [
+    "select island from World Routes or island list",
+    "Regenerate Current Seed reproduces the current layout",
+    "Reroll Archipelago Seed creates a different collision-safe layout and coastline set",
+    "open Overworld Layout",
+    "select a scene cell",
+    "Shift+Arrow or inspector/context movement actions",
+    "Save All or F5"
+  ],
+  "pcg_layout": {
+    "seed_source": "shareable per-world seed persisted with the scene rectangle manifest",
+    "placement_mode": "seeded_collision_safe_ring",
+    "canvas_size_px": [
+      1800,
+      1200
+    ],
+    "outer_margin_px": 70,
+    "minimum_island_gap_px": 120,
+    "mainland_policy": "center Alderreach as an 8x5 continuous surface while retaining the legacy havenwild_mainland save namespace",
+    "reroll_policy": "explicit editor or Bash reroll; the same seed reproduces the same layout and coastlines",
+    "future_new_game_binding": "each save slot supplies its own world seed to the same layout and island generators"
+  }
+}

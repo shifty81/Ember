@@ -1,0 +1,48 @@
+{
+  "schema": "havenwild.repository_content_normalization.v0_1",
+  "revision": "167Z109W14-source-grounded-cliff-grammar-v1",
+  "canonicalPaths": {
+    "animations": "content/animations/",
+    "worldgenPacks": "content/worldgen/packs/",
+    "assetPacks": "content/asset_packs/",
+    "currentDocs": "docs/current/",
+    "passHistory": "docs/archive/pass_history/",
+    "packageableGenerated": "assets/generated/",
+    "workspaceGenerated": "WORKSPACE/generated/"
+  },
+  "retiredPaths": [
+    "content/animation/",
+    "content/packs/",
+    "web/editor/",
+    "archive/source/legacy_cpp_shell/",
+    "tools/automation/archive/foreign_open2d_menu/",
+    "content/build/validator_registry_v2.json",
+    "content/build/generated_output_registry_v1.json"
+  ],
+  "archivedPaths": {
+    "legacyBrowserEditor": "archive/source/legacy_web_editor/",
+    "oldValidatorRegistry": "content/build/archive/validator_registry_v2.json",
+    "oldGeneratedOutputRegistry": "content/build/archive/generated_output_registry_v1.json"
+  },
+  "documentationPolicy": {
+    "currentDirectoryContainsCurrentStateOnly": true,
+    "passDocumentsAreHistorical": true,
+    "sourceOfTruth": "docs/source_of_truth/HAVENWILD_PROJECT_SOURCE_OF_TRUTH_REGENERATED.md",
+    "currentIndex": "docs/current/README.md"
+  },
+  "foreignProjectPolicy": {
+    "open2dIsSeparateProject": true,
+    "open2dSourceAllowedInHavenwild": false,
+    "historicalForeignOpen2dToolsAllowed": false
+  },
+  "futureAdditionRules": [
+    "new animation contracts use content/animations",
+    "new worldgen packs use content/worldgen/packs",
+    "new asset providers use content/asset_packs plus source/license metadata",
+    "new pass records go to docs/archive/pass_history or docs/handoffs and are summarized into current docs",
+    "reproducible caches do not become source authority merely because they are generated",
+    "deprecated browser tooling does not return to Build All"
+  ],
+  "currentNormalizationCheckpoint": "Pass167Z109W14",
+  "masterDomainRegistry": "content/architecture/master_domain_registry_v0_1.json"
+}

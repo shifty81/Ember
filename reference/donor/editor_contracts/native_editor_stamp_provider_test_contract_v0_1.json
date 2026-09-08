@@ -1,0 +1,41 @@
+{
+  "schema": "havenwild.native_editor.stamp_provider_test_contract.v0_1",
+  "pass": "167Z92",
+  "previousPass": "167Z91",
+  "scope": "default_stamp_registry_multi_provider_test_authority",
+  "reportedFailure": {
+    "crate": "haven_assets",
+    "test": "stamp_registry::tests::default_registry_is_lpc_only_after_asset_policy_reset",
+    "failure": "The test required every default stamp to use the ElizaWy terrain_summer sheet after the approved OGA LPC structural-cliff provider was promoted."
+  },
+  "rootCause": {
+    "runtimeRegistryDefect": false,
+    "assetPackDiscoveryDefect": false,
+    "missingPondProvider": false,
+    "missingCliffProvider": false,
+    "summary": "The unit test encoded the retired single-provider stamp policy instead of the current approved multi-provider production registry."
+  },
+  "repair": {
+    "testRenamedForCurrentPolicy": true,
+    "approvedLpcPondProviderRequired": true,
+    "approvedOgaStructuralCliffProviderRequired": true,
+    "providerQualifiedPackIdsVerified": true,
+    "windowsPathSeparatorsNormalizedInTest": true,
+    "runtimeBehaviorChanged": false,
+    "lintSuppressionAdded": false
+  },
+  "acceptance": [
+    "The default stamp registry resolves lpc_pond_grass_bank_a from the havenwild_objects pack and the ElizaWy terrain_summer sheet.",
+    "The default stamp registry resolves oga_lpc.cliff.ladder from the oga_lpc_cliffs pack and the promoted grass-top cliff sheet.",
+    "The regression test accepts Windows and POSIX source-path separators.",
+    "The old all-stamps-must-use-terrain_summer assertion is absent.",
+    "No runtime, editor, terrain, save, asset license, or source-pixel behavior changes are introduced."
+  ],
+  "windowsRerunRequired": [
+    "cargo fmt --all -- --check",
+    "cargo check --workspace --all-targets",
+    "cargo clippy --workspace --all-targets -- -D warnings",
+    "cargo test --workspace"
+  ],
+  "nextEditorLane": "continuous_alderreach_world_editor"
+}

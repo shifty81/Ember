@@ -1,0 +1,32 @@
+{
+  "project_id": "havenwild_starter",
+  "name": "Havenwild Starter Island",
+  "schema_version": "v009",
+  "scenes": [
+    "farmstead",
+    "tavern_interior",
+    "cellar",
+    "guest_floor",
+    "north_road",
+    "south_field",
+    "east_woods",
+    "cave_mouth",
+    "cave_depths"
+  ],
+  "assets": [
+    "assets/generated/worldgen_v0_1/worldgen_asset_manifest_v0_1.json",
+    "content/animations/character_animation_contract_v0_10.json"
+  ],
+  "databases": [
+    "content/packs",
+    "content/worldgen",
+    "content/editor",
+    "content/schemas"
+  ],
+  "editor_layout": null,
+  "runtime_config": {
+    "defaultWorldgenPack": "content/worldgen/packs/worldgen_home_island_v0_10.json",
+    "layoutSavePath": "workspace/saves/editor_layout.tlayout",
+    "worldSavePath": "workspace/saves/world.tworld"
+  }
+}

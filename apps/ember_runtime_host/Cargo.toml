@@ -1,0 +1,11 @@
+[package]
+name = "ember_runtime_host"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_runtime = { path = "../../crates/ember_runtime" }
+ember_level = { path = "../../crates/ember_level" }
+ember_runtime_bridge = { path = "../../crates/ember_runtime_bridge" }
+serde_json.workspace = true

@@ -1,0 +1,85 @@
+{
+  "schema": "havenwild.editor.discrete_structural_levels_authoring.v0_1",
+  "pass": "167Z109W56H1",
+  "status": "active_authoring_authority",
+  "purpose": "Represent authored top-down 2.5D platforms without continuous height painting.",
+  "storage": {
+    "field": "TavernMap.structural_levels",
+    "values": {
+      "auto": "u8::MAX",
+      "level0": 0,
+      "level1": 1,
+      "level2": 2,
+      "level3": 3,
+      "level4": 4
+    },
+    "rawGeologicalHeightField": "TavernMap.heights",
+    "separationRule": "structural authoring never rewrites raw geological or hydrology height",
+    "authoringRange": "0..=4",
+    "pcgDefaultRange": "0..=2 unless a world-generation profile explicitly requests higher authored structures"
+  },
+  "editorOperations": [
+    "select platform region",
+    "rectangle platform region",
+    "apply active level",
+    "raise one level",
+    "lower one level",
+    "carve to Level 0",
+    "contiguous level fill",
+    "eyedropper"
+  ],
+  "disabledOperations": [
+    "freeform level paint",
+    "freeform level erase",
+    "smooth elevation",
+    "numeric height brush",
+    "global structural replace"
+  ],
+  "transactionRules": {
+    "typedOperation": "SetStructuralLevel",
+    "crossPartition": true,
+    "oneUndoStepPerAction": true,
+    "atomicRollback": true,
+    "clipboardPreservesStructuralLevels": true,
+    "clipboardPreservesRawHeightLosslessly": true
+  },
+  "boundaryResolution": {
+    "source": "neighboring structural level differences",
+    "visuals": "Shared ElizaWy structural recipe projects discrete Level 1 through Level 4 faces with identical straight/diagonal/terminal receiver-row counts for a given tier delta.",
+    "unsupportedTopology": "editor validation error",
+    "runtimeWhileProviderQuarantined": "retired; ElizaWy structural provider is active, with fail-open fallback only when the source texture cannot load"
+  },
+  "connectors": {
+    "requiredKinds": [
+      "ramp",
+      "stairs",
+      "ladder",
+      "bridge socket",
+      "cave opening",
+      "waterfall socket"
+    ],
+    "placementRule": "explicit attachment with visual, collision, traversal, footprint, and provider metadata",
+    "currentRuntimeStatus": "active_n5x3",
+    "runtimeSemantics": {
+      "ramp": "south-facing one-level edge where both adjacent semantic tiles are MountainPath; runtime opens the face and shows the ordinary path corridor rather than the rejected partial diagonal sample",
+      "stairs": "reviewed south-facing higher host only: ObjectKind::Stairs on the structural edge; one-level by default",
+      "ladder": "reviewed south-facing higher host only: ObjectKind::Stairs with object state ladder, or a Stairs connector spanning a multi-level edge",
+      "bridge": "TileKind::Bridge on either side of a structural edge; existing bridge renderer owns artwork",
+      "cave opening": "ObjectKind::CaveEntrance at an eligible south-facing cliff host; interaction/transition owns entry and the face remains collision-blocking",
+      "waterfall socket": "RiverWater structural drop into a lower water neighbor on a supported south/west/east edge; traversal remains blocked"
+    },
+    "dedicatedLadderObjectKind": false,
+    "ladderAuthoringNote": "N5R reuses the existing Stairs attachment with ladder state so runtime/editor schemas do not fork; a dedicated editor-facing Ladder row can be added later without changing traversal authority."
+  },
+  "acceptance": [
+    "Create Level 1 and Level 2 plateaus spanning storage partitions and verify boundary collision matches visible cliff edges.",
+    "Verify geological height values do not change during structural edits.",
+    "Verify one-level MountainPath pairs open a ramp lane and other unconnected level edges block.",
+    "Verify Stairs and ladder-state Stairs open exact structural connector lanes.",
+    "Verify CaveEntrance uses interaction/transition rather than walking through the cliff face.",
+    "Verify Bridge tiles open crossing edges and waterfalls stay blocked while animating.",
+    "Temporarily remove the certified cliff source and verify structural collision fails open rather than creating invisible walls.",
+    "Author and serialize Level 3 and Level 4 platforms without clamping them to Level 2.",
+    "Verify editor bridge and runtime shared cliff recipe project exactly 1, 2, 3, and 4 receiver rows for matching south-facing tier deltas."
+  ]
+}

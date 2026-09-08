@@ -1,0 +1,84 @@
+{
+  "schema": "havenwild.editor.dev_client_bridge_authority.v0_1",
+  "pass": "167Z109W15B",
+  "revision": "167Z109W15B-local-live-authoring-bridge-v1",
+  "status": "active",
+  "purpose": "Make the native editor and development game client a synchronized local authoring pair so saved project-source changes can be pushed into the running client without rebuilding when only assets or authored world data changed.",
+  "transport": {
+    "kind": "repository_local_file_ipc",
+    "root": "WORKSPACE/dev_bridge",
+    "networkRequired": false,
+    "cloudRequired": false,
+    "clientOptInEnvironment": "HAVENWILD_DEV_BRIDGE",
+    "statusHeartbeatMs": 500,
+    "statusStaleMs": 4000,
+    "machineLocalTransportExcludedFromSourcePackages": true
+  },
+  "editor": {
+    "menu": "Dev",
+    "commands": [
+      "Launch / Attach Client",
+      "Save & Push",
+      "Push Assets",
+      "Push Saved World",
+      "Build & Restart Client",
+      "Stop Client",
+      "Auto Push",
+      "Development Map Reveal"
+    ],
+    "savePolicy": "Saving writes authoritative project files first. Push only invalidates/reloads the running development client and is never the persistence authority.",
+    "autoPushDefault": true,
+    "developmentMapRevealDefault": true,
+    "shortcut": "Ctrl+Shift+P = Save & Push"
+  },
+  "client": {
+    "liveAssetReload": true,
+    "liveSavedEditorWorldReload": true,
+    "buildRestartForRustChanges": true,
+    "developmentRevealIsDisplayOnly": true,
+    "developmentRevealPersistsExploration": false,
+    "supportedCommands": [
+      "reload_assets",
+      "reload_editor_world",
+      "reload_assets_and_world",
+      "set_reveal_all_map",
+      "quit_client"
+    ]
+  },
+  "permanence": {
+    "authoritativeEdits": "project source files saved by the editor",
+    "runtimeBridgeState": "ephemeral machine-local state under WORKSPACE/dev_bridge",
+    "rule": "Closing the editor/client never removes a successfully saved project-source edit. Rebuild is required only for executable Rust changes; asset/world saves remain on disk independently of the client process.",
+    "coreDevelopmentWorldSource": "content/worldgen/dev_worlds/core_dev_001/world.tworld",
+    "machineLocalWorkingWorld": "WORKSPACE/saves/world.tworld",
+    "worldSaveRule": "Editor Save writes the machine-local working world and then the source-controlled Core Dev authored mirror. Client live world reload consumes the source-controlled mirror."
+  },
+  "handoff": {
+    "toolMenu": "Package development handoff",
+    "requiresCapturedPackageBaseline": true,
+    "purpose": "Create one uploadable local-change ZIP relative to the user's captured project baseline so local editor-authored changes can be synchronized back into the Havenwild project chat.",
+    "officialCumulativePass": false,
+    "rule": "A development handoff is synchronization transport only. It never replaces the required cumulative overwrite patch for an assistant-completed pass."
+  },
+  "developmentMap": {
+    "revealDefaultInEditorLaunchedClient": true,
+    "saveExplorationMutation": false,
+    "finiteCoreDevWorldTarget": "show all currently available/manifest-backed geography while development reveal is active"
+  },
+  "deferred": [
+    "structural-cliff right-click source/derived override resolution",
+    "fixed Core Development Seed number + certification bookmarks/regression-seed authoring",
+    "client session position restore after executable rebuild",
+    "cliff seam/collision/access closeout",
+    "ladder traversal + Climb activation",
+    "coastal cliff expansion",
+    "cave wall/floor work"
+  ],
+  "guardrails": {
+    "w14CliffSourceAuthorityChanged": false,
+    "w15aInputPauseControllerAuthorityChanged": false,
+    "licensedSourceMutationRequired": false,
+    "cavePreviewLaneReintroduced": false,
+    "developmentHandoffMaySubstituteOfficialCumulativePatch": false
+  }
+}

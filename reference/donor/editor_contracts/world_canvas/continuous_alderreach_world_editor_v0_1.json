@@ -1,0 +1,89 @@
+{
+  "schema": "havenwild.editor.continuous_alderreach_world_editor.v0_1",
+  "pass": "167Z103",
+  "application": "apps/haven_editor_native",
+  "status": "global_surface_authoring_with_discrete_structural_levels",
+  "landmass": "Alderreach",
+  "coordinateAuthority": {
+    "space": "global integer tile coordinates",
+    "partitionWidthTiles": 96,
+    "partitionHeightTiles": 64,
+    "partitionRole": "storage and streaming only",
+    "partitionBordersDefaultVisible": false,
+    "sceneTransitionsAcrossExteriorPartitions": false
+  },
+  "workspace": {
+    "documentLabel": "World Editor",
+    "title": "Alderreach Global World Editor",
+    "primaryCanvas": "one stitched continuous surface for the selected landmass",
+    "openPartitionShortcut": "Enter",
+    "openPartitionTarget": "Scene Editor"
+  },
+  "toolbar": [
+    "Select",
+    "Pan",
+    "Frame",
+    "Zoom Out",
+    "Zoom In",
+    "Partitions",
+    "Objects",
+    "Zones",
+    "Levels & Cliffs"
+  ],
+  "defaultOverlays": {
+    "partitions": false,
+    "objects": true,
+    "zones": false,
+    "structuralLevels": false
+  },
+  "selection": {
+    "cursor": "global tile",
+    "partition": "derived from the global cursor",
+    "localTile": "derived only for partition-backed scene access",
+    "inspectorFields": [
+      "partition identity",
+      "global tile coordinates",
+      "local tile coordinates",
+      "terrain material",
+      "explicit structural level",
+      "zone",
+      "object",
+      "stamp",
+      "streaming contract",
+      "edge contract"
+    ]
+  },
+  "rendering": {
+    "terrain": "stitched from assigned partition scenes with no visual gap",
+    "adaptivePreviewLod": true,
+    "nativeTilePreviewAtCloseZoom": true,
+    "objectsAndStamps": "footprint overlays",
+    "zones": "semantic translucent overlays",
+    "partitionLabels": "diagnostic overlay only",
+    "structuralLevels": "discrete Level 0-2 platform overlay with unresolved-boundary diagnostics"
+  },
+  "foundationGuarantees": [
+    "Alderreach is presented as one world rather than a grid of scene cards.",
+    "The editor uses MAP_W by MAP_H partition dimensions instead of square preview cards.",
+    "Storage partition boundaries do not define the authored world identity.",
+    "Clicking the world selects one global tile and synchronizes the partition-local selection.",
+    "The Inspector reports semantic world data for the selected global tile.",
+    "Opening a partition is an explicit drill-down into Scene Editor, not an exterior transition.",
+    "World Editor overlay state is editor-only and does not enter game saves.",
+    "Smooth geological height remains separate from editor-authored structural platform levels.",
+    "Freeform height brushes cannot author structural elevation.",
+    "Structural edits use selected or rectangular regions and cross-partition typed transactions."
+  ],
+  "deferredToNextPass": [
+    "certified authored cliff-face recipes for every required boundary topology",
+    "explicit ramp, stair, ladder, bridge, cave, and waterfall connector placement after provider certification",
+    "global road spline authoring with shoulders and junctions",
+    "Play From Here at the selected global tile"
+  ],
+  "architecture": {
+    "worldSurfaceModule": "apps/haven_editor_native/src/app/world_surface_editor.rs",
+    "sharedCanvasModule": "apps/haven_editor_native/src/app/canvas_view.rs",
+    "editorTypesModule": "apps/haven_editor_native/src/app/editor_types.rs",
+    "rule": "World-specific rendering and editor type declarations remain split from the application host so no new oversized native-editor module is introduced."
+  }
+}

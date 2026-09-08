@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "project_id": "ember",
+  "name": "Ember",
+  "root_entry": "PROJECT_CONTROL_CENTER.cmd",
+  "implementation": "tools/control_center/ember_pcc.py",
+  "language": "python3-stdlib",
+  "remote": "https://github.com/shifty81/Ember.git",
+  "default_branch": "main",
+  "primary_actions": [
+    "full-gate",
+    "commit-push-green"
+  ],
+  "capabilities": [
+    "status",
+    "full-gate",
+    "green-fingerprint",
+    "git-repair",
+    "commit-push-green",
+    "build-editor",
+    "build-runtime",
+    "run-editor",
+    "run-runtime",
+    "patch-intake",
+    "transactional-recovery",
+    "debug-bundle",
+    "source-snapshot",
+    "dependency-bootstrap"
+  ],
+  "artifacts_root": "artifacts"
+}

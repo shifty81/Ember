@@ -1,0 +1,175 @@
+{
+  "schema": "havenwild.editor.f3_terrain_workspace.v0_1",
+  "version": 6,
+  "tabs": [
+    {
+      "id": "world",
+      "label": "World",
+      "purpose": "world seed, save, streaming, scene-instance entrances"
+    },
+    {
+      "id": "ground",
+      "label": "Ground",
+      "purpose": "flat semantic terrain materials selected from one audited style lane",
+      "forbiddenTools": [
+        "Cliff",
+        "CaveWall",
+        "raw atlas cells"
+      ]
+    },
+    {
+      "id": "props",
+      "label": "Props",
+      "purpose": "trees, foliage, rocks, structures, and interaction footprints"
+    },
+    {
+      "id": "zones",
+      "label": "Zones",
+      "purpose": "gameplay and simulation ownership areas"
+    },
+    {
+      "id": "elevation",
+      "label": "Elevation",
+      "purpose": "raise/lower/smooth heights; rebuild cliffs, ramps, cave hosts, and water-facing faces"
+    },
+    {
+      "id": "topology",
+      "label": "Topology",
+      "purpose": "shared neutral masks and style-specific visual bindings"
+    },
+    {
+      "id": "rules",
+      "label": "Rules",
+      "purpose": "collision, interaction, movement, farming, and placement semantics"
+    },
+    {
+      "id": "sources",
+      "label": "Sources",
+      "purpose": "style-pack provenance, source grids, audit status, and promotion gates"
+    }
+  ],
+  "styleLaneCards": [
+    {
+      "lane": "elizawy_mainland",
+      "status": "source_audited_isolated",
+      "ground": "seasonal terrain sheets",
+      "cliffs": "seasonal structural cliff sheets; recipes pending",
+      "crossFamilyFallback": false
+    },
+    {
+      "lane": "lpc_terrain_v7",
+      "status": "pixel_certified_isolated",
+      "ground": "34 material families",
+      "cliffs": "surface highlands only; no vertical faces",
+      "crossFamilyFallback": false
+    }
+  ],
+  "elevationControls": {
+    "absoluteThresholdName": "Highland rockline",
+    "structuralThresholdName": "Face step delta",
+    "defaultStructuralDelta": 2,
+    "directCliffPaintAllowed": false
+  },
+  "runtimeMigration": {
+    "legacyFlatCliffTiles": "normalize exterior cells to grass near coasts or rock ground elsewhere",
+    "generationVersion": 10,
+    "legacyNaturalObjectFootprints": "normalize built-in natural objects from the generated authored-object atlas manifest; preserve pack-defined custom objects",
+    "legacyWetSand": "normalize to V7 Sand; no wet-sand band remains"
+  },
+  "authoredContactPolicy": {
+    "mountainPathMaterial": "V7 Dirt_Roots",
+    "shoreMaterial": "V7 Sand for marine coasts and V7 Mud/Dirt for inland banks; Gravel is general ground and is used as shore only by an explicit highland generation rule",
+    "directPairSupported": false,
+    "repair": "Exact mode preserves unsupported MountainPath/Sand contacts for diagnostics. Coast and Hydrology modes may replace touching MountainPath cells with the authored V7 Dirt_Tan road shoulder.",
+    "generatedPixelsAllowed": false,
+    "wetSandPolicy": "retired",
+    "detailVariantPolicy": "quiet V7 owner fills for Sand, Gravel, MountainPath, Rock Ground, CaveFloor, Mud, and all non-grass surface materials; audited single-cell grass accents only in homogeneous interiors",
+    "multiCellDetailPolicy": "promote complete authored detail assemblies into explicit object/stamp metadata and place atomically or skip; never crop, scatter, or partially place"
+  },
+  "waterDepthPolicy": {
+    "source": "exact source-pure terrain-map-v7 corner tuples repacked into the normalized V7 runtime atlas",
+    "semanticSequence": {
+      "freshwater": "Dirt_Brown -> Water_Shallows_Dirt -> Water -> Water_Deep",
+      "ocean": "Sand -> Water_Shallows_Sand -> Water -> Water_Deep"
+    },
+    "renderOrigin": "corner tuples render at the four-cell intersection using the shared half-tile down/right origin",
+    "unsupportedTuples": "keep quiet V7 owner fills, flag the tuple in F3 diagnostics, and normalize topology before save/worldgen certification; never borrow another style or synthesize pixels",
+    "generatedPixelsAllowed": false,
+    "crossFamilyOverlayAllowed": false,
+    "editorMutationPolicy": "Exact mode never creates a shallow-water band around a painted land tile. Coast and Hydrology modes are the only editor paths allowed to alter neighboring water depth."
+  },
+  "propFootprintPolicy": {
+    "preview": "blue visual bounds use the exact deterministic authored atlas variant manifest",
+    "collision": "collision bounds use the same variant manifest and may be smaller than visual bounds",
+    "interaction": "yellow interaction bounds remain independent from visual bounds",
+    "legacyBuiltInMigration": [
+      "tree",
+      "bush",
+      "boulder",
+      "ore_node",
+      "mushroom",
+      "herb",
+      "stump",
+      "log"
+    ]
+  },
+  "activeCertificationLane": "lpc_terrain_v7",
+  "mainlandTargetLane": "elizawy_mainland",
+  "runtimePolicy": "One contiguous landmass uses one style lane. The current test world is V7-only until the ElizaWy mainland mapping is independently certified.",
+  "normalizedAtlasPolicy": {
+    "oneAtlasPerStyleLane": true,
+    "v7Atlas": "assets/generated/worldgen_v0_1/terrain/lpc_mapped_terrain_v7_32.png",
+    "pixelPolicy": "exact source cells may be repacked with padding; recoloring, pixel synthesis, and cross-style blending are forbidden",
+    "globalMixedAtlasAllowed": false
+  },
+  "terrainPaintModes": {
+    "default": "exact",
+    "modes": [
+      {
+        "id": "exact",
+        "label": "Exact",
+        "behavior": "paint only selected semantic cells; do not mutate neighboring water or terrain",
+        "unsupportedContacts": "leave unchanged and report in F3/native-editor status"
+      },
+      {
+        "id": "coastline",
+        "label": "Coast",
+        "behavior": "explicitly rebuild the local authored shoreline and compatible V7 material contacts around the edited region"
+      },
+      {
+        "id": "hydrology",
+        "label": "Hydrology",
+        "behavior": "explicitly resolve canonical shallow/deep water inside the edited neighborhood using Hydrology V2"
+      }
+    ],
+    "exactBrushMayCreateShallowHalo": false,
+    "previewPolicy": "selected mode is visible in both F3 and native Scene Editor before commit"
+  },
+  "groundMaterialCloseout": {
+    "revision": "167Z81",
+    "checkpoint": "Pass167Z80",
+    "gravel": {
+      "tileKind": "PebbleShore",
+      "displayLabel": "Gravel",
+      "shoreIdentity": false,
+      "edgePolicy": "exact_tuple_then_reviewed_v7_connector"
+    },
+    "rockGround": {
+      "tileKind": "MountainRock",
+      "displayLabel": "Rock Ground",
+      "structuralCliff": false,
+      "edgePolicy": "exact_tuple_then_reviewed_v7_connector"
+    },
+    "mud": {
+      "tileKind": "MudBank",
+      "displayLabel": "Mud",
+      "shoreIdentity": false,
+      "edgePolicy": "exact_tuple_then_reviewed_v7_connector"
+    },
+    "wateredSoil": {
+      "tileKind": "WateredSoil",
+      "directBrush": false,
+      "createdBy": "watering TilledSoil"
+    }
+  }
+}

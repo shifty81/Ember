@@ -1,0 +1,112 @@
+{
+  "schema": "havenwild.editor.global_world_authoring_milestone.v0_1",
+  "pass": "167Z103",
+  "landmass": "Alderreach",
+  "milestone": "continuous_global_world_authoring_corrected_for_discrete_structural_levels",
+  "coordinateAuthority": {
+    "space": "global_surface_tiles",
+    "partitionWidthTiles": 96,
+    "partitionHeightTiles": 64,
+    "partitionBoundaries": "persistence_and_diagnostics_only"
+  },
+  "layers": [
+    "terrain",
+    "objects_and_stamps",
+    "zones_and_lots",
+    "structural_levels"
+  ],
+  "tools": [
+    "select",
+    "paint_terrain_or_zones",
+    "rectangle",
+    "fill",
+    "replace_terrain_or_zones",
+    "eyedropper",
+    "place",
+    "erase_terrain_or_zones",
+    "pan",
+    "apply_structural_level_to_selection",
+    "raise_selected_platform",
+    "lower_selected_platform",
+    "carve_selected_platform_to_level_0"
+  ],
+  "transactionAuthority": {
+    "oneUndoStepPerGesture": true,
+    "crossPartitionBatches": true,
+    "atomicFailureRollback": true,
+    "saveRouting": "partition_scene_ownership",
+    "typedOperations": [
+      "set_tile",
+      "set_structural_level",
+      "set_zone",
+      "insert_object",
+      "remove_object",
+      "insert_stamp",
+      "remove_stamp"
+    ]
+  },
+  "selectionAndClipboard": {
+    "globalRectangleSelection": true,
+    "copiesAnchoredObjectsAndStamps": true,
+    "crossPartitionPaste": true,
+    "pasteIsOneUndoStep": true,
+    "packDefinedObjectMetadataPolicy": "compatibility_kind_and_footprint_only",
+    "exactProviderAndStatePreservation": false,
+    "copiesTerrainStructuralLevelsAndZones": true,
+    "preservesRawGeologicalHeightWithoutExposingHeightPainting": true
+  },
+  "assetPlacement": {
+    "globalAnchorRouting": true,
+    "completeFootprintValidation": true,
+    "crossPartitionFootprintPolicy": "reject_atomically_until_shared_object_ownership_exists",
+    "croppedOrPartialPlacementAllowed": false
+  },
+  "editorUi": {
+    "layerButtons": true,
+    "toolButtons": true,
+    "brushSizeControls": "terrain_and_zone_layers_only",
+    "transactionActions": [
+      "undo",
+      "redo",
+      "copy",
+      "paste",
+      "frame",
+      "open_partition",
+      "raise_level_when_structural_layer_active",
+      "lower_level_when_structural_layer_active"
+    ],
+    "partitionDiagnosticsDefaultVisible": false
+  },
+  "passesGroupedWithoutIntermediateBuild": [
+    "167Z99",
+    "167Z100",
+    "167Z101",
+    "167Z102"
+  ],
+  "nextMilestone": "certified_cliff_recipes_and_explicit_connector_authoring",
+  "correctionAuthority": {
+    "rawHeightRole": [
+      "hydrology",
+      "geology",
+      "procedural simulation input"
+    ],
+    "rawHeightEditableAsStructuralElevation": false,
+    "structuralLevelDomain": [
+      0,
+      1,
+      2
+    ],
+    "legacyAutoSentinel": "u8::MAX",
+    "freeformStructuralBrushes": false,
+    "regionOperations": [
+      "rectangle",
+      "selection apply",
+      "contiguous fill",
+      "raise",
+      "lower",
+      "carve to Level 0"
+    ],
+    "visibleCliffPolicy": "derived only from certified authored cliff recipes",
+    "collisionPolicy": "no invisible structural collision while the visible provider remains quarantined"
+  }
+}
