@@ -1,0 +1,13 @@
+[package]
+name = "ember_editor"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_core = { path = "../../crates/ember_core" }
+ember_project = { path = "../../crates/ember_project" }
+ember_documents = { path = "../../crates/ember_documents" }
+ember_editor_core = { path = "../../crates/ember_editor_core" }
+ember_app_shell = { path = "../../crates/ember_app_shell" }
+serde_json.workspace = true

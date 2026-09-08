@@ -1,0 +1,48 @@
+{
+  "int_grid": [
+    {
+      "layer": "Collision",
+      "value": 1,
+      "semantic": {
+        "material": "terrain_material:solid",
+        "collision": "Solid",
+        "navigation_cost": null,
+        "tags": ["terrain:solid"],
+        "behavior_graphs": [],
+        "properties": {}
+      }
+    },
+    {
+      "layer": "Collision",
+      "value": 2,
+      "semantic": {
+        "material": "terrain_material:one_way",
+        "collision": "OneWay",
+        "navigation_cost": null,
+        "tags": ["terrain:one_way"],
+        "behavior_graphs": [],
+        "properties": {}
+      }
+    }
+  ],
+  "entity_components": {
+    "PlayerStart": [
+      {
+        "component_type": "component:spawn_point",
+        "field_map": {
+          "PlayerIndex": "player_index"
+        },
+        "fixed_properties": {
+          "spawn_kind": "player"
+        }
+      }
+    ]
+  },
+  "entity_tags": {
+    "PlayerStart": ["entity:spawn_point"]
+  },
+  "layer_kinds": {
+    "Collision": "SemanticGrid",
+    "Actors": "Entities"
+  }
+}

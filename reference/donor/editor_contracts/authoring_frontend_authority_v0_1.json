@@ -1,0 +1,80 @@
+{
+  "schema": "havenwild.authoring.frontend-authority.v0_1",
+  "revision": "167Z106N1-shared-authoring-authority-v1",
+  "canonicalKernel": "haven_authoring",
+  "policy": {
+    "uiOwnsDomainRules": false,
+    "nativeEditorDependsOnGameFrontend": false,
+    "gameDependsOnNativeEditorCrate": false,
+    "pcgUsesCanonicalDomainContracts": true,
+    "worldBuilderIsFirstClassGameplayFeature": true,
+    "f3OverlayIsDeveloperDiagnosticsNotPlayerWorldBuilder": true,
+    "futureFeatureRegistration": "domain schema + canonical operation + capability + validation + frontend presentation"
+  },
+  "frontends": [
+    {
+      "id": "native_developer_editor",
+      "owner": "apps/haven_editor_native",
+      "purpose": "complete offline developer authoring environment",
+      "profile": "AuthoringProfile::native_developer_editor",
+      "access": "all registered authoring and developer capabilities"
+    },
+    {
+      "id": "player_world_builder",
+      "owner": "crates/haven_game",
+      "purpose": "player-facing world creation and editing mode for authored playable worlds",
+      "profile": "AuthoringProfile::player_world_builder",
+      "access": "safe world/content capabilities; no source assets, license metadata, collision recipes, or developer structural recipes"
+    },
+    {
+      "id": "developer_overlay",
+      "owner": "crates/haven_game",
+      "purpose": "F3 runtime inspection, diagnostics, teleport/debug spawning, and local live-reload support",
+      "profile": "AuthoringProfile::developer_overlay",
+      "access": "diagnostic/runtime capabilities; not a substitute for Player World Builder"
+    },
+    {
+      "id": "automation",
+      "owner": "tools + tests + PCG adapters",
+      "purpose": "headless deterministic project/world mutation and validation",
+      "profile": "AuthoringProfile::automation",
+      "access": "canonical data operations without developer-only source-art mutation"
+    }
+  ],
+  "requiredCapabilityIds": [
+    "world.inspect",
+    "world.terrain.paint",
+    "world.terrain.replace",
+    "world.water.modify",
+    "world.structure.level",
+    "world.object.place",
+    "world.object.delete",
+    "world.structure.place",
+    "world.structure.delete",
+    "world.zone.create",
+    "world.road.modify",
+    "world.npc.place",
+    "world.settings.modify",
+    "world.pcg.regenerate",
+    "runtime.live_reload",
+    "runtime.diagnostics",
+    "runtime.debug_spawn",
+    "runtime.teleport",
+    "asset.source.modify",
+    "asset.metadata.modify",
+    "developer.collision.modify",
+    "developer.recipe.modify"
+  ],
+  "migration": {
+    "movedToCanonicalKernel": [
+      "terrain paint mode policy",
+      "terrain paint mode report",
+      "scene/cell inspection",
+      "world validation",
+      "scene autotile override validation",
+      "default world authoring palette"
+    ],
+    "compatibility": "haven_editor may re-export shared contracts during normalization; new runtime code imports them from haven_authoring directly",
+    "retiredDependency": "haven_game -> haven_editor"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "havenwild.native_editor.build_gate.v0_1",
+  "pass": "167Z90",
+  "previousPass": "167Z89",
+  "scope": "native_editor_workspace_shell_test_clippy_closeout",
+  "reportedFailure": {
+    "lint": "clippy::field-reassign-with-default",
+    "file": "apps/haven_editor_native/src/app/ui_shell.rs",
+    "test": "visible_panels_and_bottom_dock_expose_resize_splitters"
+  },
+  "repair": {
+    "strategy": "construct_complete_state_with_struct_update_syntax",
+    "lintSuppressionAdded": false,
+    "runtimeBehaviorChanged": false,
+    "layoutPersistenceChanged": false,
+    "worldOrSaveDataChanged": false
+  },
+  "windowsRerunRequired": [
+    "cargo fmt --all -- --check",
+    "cargo check --workspace --all-targets",
+    "cargo clippy --workspace --all-targets -- -D warnings",
+    "cargo test --workspace"
+  ],
+  "nextEditorLane": "continuous_alderreach_world_editor"
+}

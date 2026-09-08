@@ -1,0 +1,42 @@
+{
+  "schema": "havenwild.native_editor.asset_pack_resilience.v0_1",
+  "pass": "167Z91",
+  "previousPass": "167Z90",
+  "scope": "native_editor_asset_catalog_and_runtime_pack_discovery_resilience",
+  "reportedFailure": {
+    "crate": "haven_assets",
+    "test": "asset_palette::tests::default_palette_covers_tiles_and_supported_objects",
+    "missingAsset": "oga_lpc.cliff.ladder",
+    "expectedCategory": "elevation"
+  },
+  "rootCause": {
+    "summary": "Strict project-wide asset-pack discovery returned an error when any optional user/mod pack was invalid, causing editor and runtime catalog loaders to discard every valid built-in pack and fall back to the legacy pond-only stamp registry.",
+    "builtInPackWasMissing": false,
+    "cliffManifestWasMissing": false,
+    "ladderMetadataWasMissing": false
+  },
+  "repair": {
+    "strictDiscoveryPreserved": true,
+    "tolerantDiscoveryAdded": true,
+    "validProductionPacksRemainMounted": true,
+    "diagnosticsRetained": true,
+    "editorImportsPanelShowsPackStatus": true,
+    "runtimeUsesValidPacksWhenOptionalPackFails": true,
+    "lintSuppressionAdded": false
+  },
+  "acceptance": [
+    "The strict RuntimeAssetSession::discover path still fails for certification and smoke-test callers when any pack is invalid.",
+    "RuntimeAssetSession::discover_tolerant mounts all valid production packs and retains the complete discovery report.",
+    "StampRegistry::load_default uses tolerant discovery before legacy fallback.",
+    "The native editor Imports panel reports mounted packs, diagnostic failures, and stable source bindings.",
+    "The OGA LPC cliff ladder remains visible under Elevation & Cliffs even when a machine-local optional pack is invalid.",
+    "The game runtime keeps valid built-in packs mounted instead of dropping to legacy-only assets because of one optional-pack failure."
+  ],
+  "windowsRerunRequired": [
+    "cargo fmt --all -- --check",
+    "cargo check --workspace --all-targets",
+    "cargo clippy --workspace --all-targets -- -D warnings",
+    "cargo test --workspace"
+  ],
+  "nextEditorLane": "continuous_alderreach_world_editor"
+}

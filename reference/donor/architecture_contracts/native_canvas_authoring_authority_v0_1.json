@@ -1,0 +1,29 @@
+{
+  "schema": "havenwild.native_canvas_authoring_authority.v0_1",
+  "revision": "167Z109S-v1",
+  "behaviorPreserving": true,
+  "goal": "Make the existing native editor canvas simpler to extend by sharing one screen/world transform, visible-region query path, selection/command authority, and responsive shell without redesigning the editor or changing game visuals.",
+  "authority": {
+    "coordinateTransform": "haven_authoring::AuthoringCanvasTransform",
+    "selection": "haven_authoring::EditorSelection via haven_editor compatibility re-export",
+    "commands": "haven_authoring::EditorCommandBus via haven_editor compatibility re-export",
+    "workspaceLayout": "apps/haven_editor_native::ui_shell::EditorShellLayout",
+    "nativeCameraAdapter": "apps/haven_editor_native::canvas_camera::CanvasCameraState"
+  },
+  "normalizations": [
+    "scene, world-surface, and scene-bank hit testing use the same CanvasCameraState screen_to_world path backed by AuthoringCanvasTransform",
+    "scene/world tile hit tests use shared screen_to_grid_cell math",
+    "world preview and scene tile rendering derive visible cell windows from shared authoring grid clipping",
+    "canvas pan/zoom remains native-UI input state while geometric mapping is headless/shared",
+    "left/right/bottom panels continue to compress/overlay around the real drawable surface; no fake minimum window size is reintroduced"
+  ],
+  "compatibility": {
+    "gameVisualsUnchanged": true,
+    "terrainProvidersUnchanged": true,
+    "worldSeedsUnchanged": true,
+    "saveSchemaUnchanged": true,
+    "editorWorkspaceLayoutSchemaUnchanged": true,
+    "f3RuntimeBehaviorUnchanged": true
+  },
+  "next": "Pass167Z109T WorldPlan compatibility bridge; keep current seeds/output where possible before any visible cliff replacement."
+}

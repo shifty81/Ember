@@ -1,0 +1,48 @@
+{
+  "schema": "havenwild.generated_data_ownership.v0_1",
+  "revision": "167Z106N5-repository-content-normalization-v1",
+  "roots": [
+    {
+      "path": "assets/generated",
+      "owner": "project_runtime_pipeline",
+      "packagePolicy": "include",
+      "authority": "runtime/editor generated assets that are expensive or required to reproduce exact visuals",
+      "examples": [
+        "LPC runtime atlases",
+        "worldgen runtime atlases"
+      ]
+    },
+    {
+      "path": "WORKSPACE/generated",
+      "owner": "machine_local_development",
+      "packagePolicy": "exclude",
+      "authority": "reproducible audits, indexes, catalogs, temporary authoring state and validator outputs",
+      "regeneration": "HavenwildTools dependency sync, asset catalog, validation and promotion commands"
+    },
+    {
+      "path": "WORKSPACE/test-output",
+      "owner": "machine_local_tests",
+      "packagePolicy": "exclude",
+      "authority": "transient tests and exported fixtures"
+    },
+    {
+      "path": "WORKSPACE/saves",
+      "owner": "user_local_state",
+      "packagePolicy": "exclude",
+      "authority": "user/developer save data"
+    },
+    {
+      "path": "WORKSPACE/recovery",
+      "owner": "machine_local_recovery",
+      "packagePolicy": "exclude",
+      "authority": "editor recovery/autosave state"
+    }
+  ],
+  "policy": {
+    "generatedDoesNotMeanSameOwnership": true,
+    "runtimeGeneratedAssetsCanBeSourceControlled": true,
+    "reproducibleWorkspaceCachesAreNotSourceAuthority": true,
+    "contentContractsMustNotDependOnAWorkspaceCacheBeingPrepackaged": true,
+    "buildMayRegenerateWorkspaceIndexesFromPinnedDependencies": true
+  }
+}

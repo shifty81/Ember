@@ -1,0 +1,22 @@
+name: Ember CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  rust-quality:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: Cargo fmt
+        run: cargo fmt --all -- --check
+      - name: Cargo check
+        run: cargo check --workspace --all-targets
+      - name: Cargo test
+        run: cargo test --workspace
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings

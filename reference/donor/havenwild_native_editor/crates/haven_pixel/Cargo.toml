@@ -1,0 +1,11 @@
+[package]
+name = "haven_pixel"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+haven_assets = { path = "../haven_assets" }
+image.workspace = true
+serde.workspace = true
+serde_json.workspace = true

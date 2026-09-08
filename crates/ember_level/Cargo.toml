@@ -1,0 +1,12 @@
+[package]
+name = "ember_level"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_core = { path = "../ember_core" }
+ember_scene = { path = "../ember_scene" }
+ember_commands = { path = "../ember_commands" }
+serde.workspace = true
+serde_json.workspace = true

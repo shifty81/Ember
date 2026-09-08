@@ -1,0 +1,33 @@
+{
+  "schema": "havenwild.native_editor_gui_authority.v0_1",
+  "revision": "167Z109O-responsive-shell-and-overflow-policy-v1",
+  "scope": "Havenwild native editor and in-game F3 developer authoring shell",
+  "principles": {
+    "singleWindowAuthority": "All native editor workspaces share one persistent shell/chrome contract rather than inventing workspace-local window geometry.",
+    "actualDrawableArea": "Layout calculations use the actual current drawable width/height. No synthetic minimum window size may push panels outside the OS window.",
+    "canvasPriority": "Project and inspector panels may compress when space is constrained so the center canvas remains usable. Persisted panel widths are preferences, not permission to overflow the window.",
+    "overflowPolicy": "Any panel whose controls exceed its visible content rectangle must use bounded scrolling, pagination, tabs, or collapsible sections. Controls may never become unreachable below or beside the window.",
+    "controlLabels": "Buttons and tabs must keep labels inside their bounds using clipping/ellipsis or adaptive sizing; labels may not draw across neighboring controls.",
+    "fixedStatus": "The status bar remains fixed to the shell edge. Bottom panels overlay/dock without causing canvas geometry to jump unexpectedly.",
+    "persistentProjectPanel": "The normal authoring shell keeps the project/browser lane on the left and selection/property inspection on the right when those panels are enabled.",
+    "inputOwnership": "Chrome, panels, splitters, dialogs, and canvas each own input only inside their visible bounds. Hidden or clipped controls may not remain clickable.",
+    "f3IsLightweight": "F3 is a runtime authoring/debug overlay, not a duplicate of the full native editor. Expensive diagnostics are opt-in and normal rendering caches remain active unless the selected tool requires live per-cell terrain state."
+  },
+  "responsiveTargets": {
+    "preferredWindow": [1600, 900],
+    "minimumCenterCanvasWidthWhenSpaceAllows": 320,
+    "leftPanelDesiredRange": [220, 360],
+    "rightPanelDesiredRange": [300, 480],
+    "bottomDockDesiredRange": [136, 320],
+    "controlHeight": 28,
+    "panelHeaderHeight": 28,
+    "statusBarHeight": 28
+  },
+  "requiredFutureNormalization": [
+    "Add a shared bounded-scroll container for long inspectors and property sheets.",
+    "Migrate Pixel Studio Grid/Asset inspector, Animation inspector, Character inspector, object/property inspectors, and asset intake panels to the shared overflow container.",
+    "Normalize section spacing, row heights, field label columns, disabled/hover/focus states, and keyboard focus traversal project-wide.",
+    "Persist desired dock sizes while deriving safe effective sizes from the current drawable area.",
+    "Keep workspace tabs responsive and reachable at reduced window widths."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "havenwild.authoring.module-boundaries.v0_1",
+  "revision": "167Z106N4-core-ui-world-builder-decomposition-v1",
+  "policy": {
+    "focusedRustModuleLineLimit": 750,
+    "raiseLimitInsteadOfDecompose": false,
+    "playerWorldBuilderIsFirstClass": true,
+    "f3DeveloperOverlayIsDistinct": true,
+    "nativeEditorAndWorldBuilderShareKernel": "haven_authoring",
+    "futureFeatureRule": "new systems extend focused domain, authoring, validation and presentation modules without regrowing monolithic facade files"
+  },
+  "coreFoundation": {
+    "facade": "crates/haven_core/src/foundation.rs",
+    "responsibilities": [
+      "public foundation types and re-exports",
+      "object/stamp operations shared by the foundation domain"
+    ],
+    "delegates": [
+      "foundation/map_core.rs",
+      "foundation/map_serialization.rs",
+      "foundation/starter_generation.rs",
+      "foundation/starter_scene_rules.rs",
+      "foundation/spatial_validation.rs"
+    ]
+  },
+  "inventory": {
+    "facade": "crates/haven_game/src/player_inventory_ui.rs",
+    "responsibilities": [
+      "inventory data model",
+      "persistence",
+      "shared inventory helpers"
+    ],
+    "delegates": [
+      "player_inventory_ui/interaction.rs",
+      "player_inventory_ui/crafting.rs",
+      "player_inventory_ui/station_processing.rs",
+      "player_inventory_ui/draw.rs"
+    ],
+    "extensionRule": "future equipment, crafting, station, container and inventory presentation features extend their focused module or a new sibling module instead of growing the facade"
+  },
+  "runtimeWorldBuilder": {
+    "facade": "crates/haven_game/src/runtime_editor_shell.rs",
+    "playerFrontend": "crates/haven_game/src/runtime_editor_shell/world_builder.rs",
+    "windowTransform": "crates/haven_game/src/runtime_editor_shell/window_transform.rs",
+    "developerOverlay": "F3 developer diagnostics remain a separate frontend contract under content/editor/authoring_frontend_authority_v0_1.json",
+    "extensionRule": "player-facing world authoring belongs to World Builder modules and shared haven_authoring capabilities; diagnostics/profiling/debug spawning do not become World Builder domain rules"
+  }
+}

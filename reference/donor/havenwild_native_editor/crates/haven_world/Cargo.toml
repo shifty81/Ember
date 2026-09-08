@@ -1,0 +1,11 @@
+[package]
+name = "haven_world"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+haven_core = { path = "../haven_core" }
+image.workspace = true
+serde.workspace = true
+serde_json.workspace = true

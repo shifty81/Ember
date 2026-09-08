@@ -1,0 +1,107 @@
+{
+  "$schema": "https://schemas.local/forge/project-v1.schema.json",
+  "schema_version": 1,
+  "id": "ember",
+  "name": "Ember",
+  "kind": "rust-game-authoring-suite",
+  "repository": {
+    "provider": "github",
+    "remote": "https://github.com/shifty81/Ember.git",
+    "default_branch": "main"
+  },
+  "capabilities": [
+    "build",
+    "test",
+    "validate",
+    "run",
+    "package",
+    "git",
+    "artifacts",
+    "debug-bundle",
+    "source-refresh",
+    "cortex-adapter",
+    "project-control-center",
+    "green-gate",
+    "patch-intake",
+    "transactional-recovery",
+    "dependency-bootstrap"
+  ],
+  "commands": {
+    "build.editor": {
+      "program": "cargo",
+      "args": [
+        "build",
+        "-p",
+        "ember_editor"
+      ]
+    },
+    "build.runtime": {
+      "program": "cargo",
+      "args": [
+        "build",
+        "-p",
+        "ember_runtime_host"
+      ]
+    },
+    "test": {
+      "program": "cargo",
+      "args": [
+        "test",
+        "--workspace"
+      ]
+    },
+    "check": {
+      "program": "cargo",
+      "args": [
+        "check",
+        "--workspace",
+        "--all-targets"
+      ]
+    },
+    "fmt.check": {
+      "program": "cargo",
+      "args": [
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ]
+    },
+    "clippy.strict": {
+      "program": "cargo",
+      "args": [
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ]
+    },
+    "run.editor": {
+      "program": "cargo",
+      "args": [
+        "run",
+        "-p",
+        "ember_editor"
+      ]
+    },
+    "run.runtime": {
+      "program": "cargo",
+      "args": [
+        "run",
+        "-p",
+        "ember_runtime_host"
+      ]
+    }
+  },
+  "integrations": {
+    "cortex": "integrations/cortex/adapter.json"
+  },
+  "project_control_center": {
+    "entry": "PROJECT_CONTROL_CENTER.cmd",
+    "implementation": "tools/control_center/ember_pcc.py",
+    "external_runtime_required": false,
+    "profile": "project-control-center.profile.json"
+  }
+}

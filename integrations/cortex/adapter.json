@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "ember.cortex.adapter",
+  "name": "Ember Cortex Adapter",
+  "owner": "ember",
+  "protocol": "ember.cortex.adapter",
+  "protocol_version": "1.0",
+  "requires_cortex": ">=1.0",
+  "requires_forge_contract": ">=1",
+  "project_kinds": ["ember", "rust-game-authoring-suite"],
+  "transports": ["stdio-jsonl", "windows-named-pipe", "mcp"],
+  "authority": {
+    "project_operations": "forge",
+    "editor_operations": "ember-editor-ipc",
+    "ai_orchestration": "cortex"
+  },
+  "capabilities": [
+    "project.status",
+    "project.health",
+    "project.capabilities",
+    "gate.fast",
+    "gate.full",
+    "build.foundry",
+    "build.runtime",
+    "test",
+    "validate",
+    "run.foundry",
+    "run.runtime",
+    "package.source",
+    "package.release",
+    "editor.status",
+    "editor.open",
+    "editor.open_document",
+    "editor.active_document",
+    "editor.selection",
+    "editor.save",
+    "editor.play_test",
+    "assets.search",
+    "assets.validate",
+    "documents.validate",
+    "logs.latest",
+    "artifacts.list"
+  ],
+  "schemas": {
+    "tool_request": "integrations/cortex/schemas/tool-request.schema.json",
+    "tool_result": "integrations/cortex/schemas/tool-result.schema.json"
+  }
+}

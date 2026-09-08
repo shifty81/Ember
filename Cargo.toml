@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = [
+  "apps/ember_editor",
+  "apps/ember_runtime_host",
+  "crates/ember_core",
+  "crates/ember_project",
+  "crates/ember_assets",
+  "crates/ember_documents",
+  "crates/ember_scene",
+  "crates/ember_level",
+  "crates/ember_commands",
+  "crates/ember_editor_core",
+  "crates/ember_canvas",
+  "crates/ember_pixel",
+  "crates/ember_world",
+  "crates/ember_nodes",
+  "crates/ember_runtime",
+  "crates/ember_validation",
+  "crates/ember_tools",
+  "crates/ember_ldtk",
+  "crates/ember_app_shell",
+  "crates/ember_runtime_bridge",
+  "crates/ember_cortex_adapter"
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Shifty"]
+license = "Proprietary"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

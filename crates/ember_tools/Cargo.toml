@@ -1,0 +1,15 @@
+[package]
+name = "ember_tools"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_core = { path = "../ember_core" }
+ember_project = { path = "../ember_project" }
+ember_ldtk = { path = "../ember_ldtk" }
+ember_level = { path = "../ember_level" }
+ember_scene = { path = "../ember_scene" }
+ember_commands = { path = "../ember_commands" }
+ember_runtime = { path = "../ember_runtime" }
+serde_json.workspace = true

@@ -1,0 +1,68 @@
+{
+  "schema": "havenwild.persistence_version_cache_authority.v0_1",
+  "revision": "167Z109V-v1",
+  "behaviorPreserving": true,
+  "authority": {
+    "persistentEntityIdType": "haven_core::PersistentEntityId",
+    "runtimeEntityIdType": "haven_ecs::EntityId",
+    "domainVersionType": "haven_save::DomainVersion",
+    "domainVersionViewType": "haven_save::PersistenceDomainVersions",
+    "liveCharacterWorldLink": "haven_save::CharacterWorldLink",
+    "chunkPersistence": "haven_save::ChunkPersistenceEnvelope"
+  },
+  "identityBoundary": {
+    "runtimeEntityIdsAreProcessLocal": true,
+    "runtimeEntityIdsAreNeverSaveAuthority": true,
+    "stableGameplayIdsCrossSaveAndReplicationBoundaries": true,
+    "runtimeIdentityComponentUsesPersistentEntityId": true,
+    "characterIdRemainsExistingSaveSchemaAuthority": true
+  },
+  "versionBoundary": {
+    "existingSaveSchemasUnchanged": true,
+    "legacyGenerationVersionRemainsPersisted": true,
+    "domainVersionsAreComputedCompatibilityViewThisPass": true,
+    "futureDomainMigrationsMayAdvanceIndependently": [
+      "world",
+      "terrain",
+      "ecology",
+      "settlement",
+      "simulation",
+      "runtime_entity"
+    ],
+    "chunkBaselineVersionsUseTransparentTypedNumbers": true
+  },
+  "typedDeltaBoundary": {
+    "existingChunkJsonShapeUnchanged": true,
+    "authoredOverridesTyped": true,
+    "playerDeltasTyped": true,
+    "persistentSimulationDeltasTyped": true,
+    "opaqueEcsComponentSerializationForbidden": true
+  },
+  "retainedCaches": [
+    {"name": "base_terrain_chunk_cache", "owner": "terrain/runtime presentation", "storage": "runtime_transient"},
+    {"name": "visible_terrain_plan_cache", "owner": "runtime presentation", "storage": "runtime_transient"},
+    {"name": "terrain_scene_surface_cache", "owner": "terrain/runtime presentation", "storage": "runtime_transient"},
+    {"name": "chunk_surface_descriptor_cache", "owner": "runtime presentation", "storage": "runtime_transient"},
+    {"name": "scene_backdrop_height_cache", "owner": "runtime presentation", "storage": "runtime_transient"},
+    {"name": "stable_asset_source_cache", "owner": "assets", "storage": "runtime_transient"},
+    {"name": "stable_texture_cache", "owner": "assets/runtime presentation", "storage": "runtime_transient"},
+    {"name": "world_paint_render_cache", "owner": "authoring/terrain presentation", "storage": "rebuildable_save_sidecar"}
+  ],
+  "cacheRules": {
+    "cacheNeverOwnsGameplayTruth": true,
+    "transientCachesAreNotSerialized": true,
+    "worldPaintRenderCacheMayBeDeletedAndRebuilt": true,
+    "cacheInvalidationMustFollowOwningDomainRevision": true,
+    "machineLocalWorkspaceGeneratedRemainsNonSourceAuthority": true
+  },
+  "retiredOwnership": [
+    "crates/haven_save/src/foundation_persistence.rs"
+  ],
+  "scopeGuards": [
+    "V does not change save JSON schemas or world generation output",
+    "V does not serialize haven_ecs EntityId values",
+    "V does not add a generic persistence framework beside haven_save",
+    "V does not implement population, professions, economy or schedules",
+    "V does not change terrain, water, cliff, cave, editor or player visuals"
+  ]
+}
