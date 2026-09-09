@@ -34,3 +34,8 @@ Remote authority: `https://github.com/shifty81/Ember`.
 ## Project Control Center
 
 Run `PROJECT_CONTROL_CENTER.cmd` from repository root. The opening menu keeps the two primary operations first: **FULL QUALITY GATE** and **COMMIT + PUSH FULL GREEN**. The embedded PCC also owns Git/GitHub repair, build/run, dependency checks, root-drop transactional patch intake, recovery, logs, debug bundles, and source snapshots under `artifacts/`.
+
+
+## Foundation tranche
+
+The post-cutover FND-01 through FND-10 architecture tranche is tracked in `docs/roadmap/EMBER_FOUNDATION_PASSES_01_10_IMPLEMENTED_20260908.md`. Candidate capabilities are promoted to certified only after local FULL GREEN and GitHub CI evidence.

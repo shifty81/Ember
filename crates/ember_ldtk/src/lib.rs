@@ -224,7 +224,7 @@ pub struct EntityComponentRule {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
-pub struct ImportedOpen2dProject {
+pub struct ImportedEmberProject {
     pub source_json_version: String,
     pub scenes: Vec<SceneDocument>,
     pub external_levels: Vec<ExternalLevelReference>,
@@ -287,7 +287,7 @@ pub fn level_count(project: &LdtkProject) -> usize {
 pub fn convert_project(
     project: &LdtkProject,
     profile: &LdtkImportProfile,
-) -> Result<ImportedOpen2dProject, LdtkImportError> {
+) -> Result<ImportedEmberProject, LdtkImportError> {
     let mut scenes = Vec::new();
     let mut external_levels = Vec::new();
     let mut diagnostics = Vec::new();
@@ -305,7 +305,7 @@ pub fn convert_project(
             });
             diagnostics.push(ImportDiagnostic {
                 severity: ImportSeverity::Info,
-                code: "O2D-LDTK-EXT-001".into(),
+                code: "EMBER-LDTK-EXT-001".into(),
                 message: format!(
                     "level {} is external and requires a second-stage document load",
                     level.identifier
@@ -316,7 +316,7 @@ pub fn convert_project(
         scenes.push(convert_level(project, level, profile, &mut diagnostics)?);
     }
 
-    Ok(ImportedOpen2dProject {
+    Ok(ImportedEmberProject {
         source_json_version: project.json_version.clone(),
         scenes,
         external_levels,
@@ -345,7 +345,7 @@ fn convert_level(
     let Some(layer_instances) = &level.layer_instances else {
         diagnostics.push(ImportDiagnostic {
             severity: ImportSeverity::Warning,
-            code: "O2D-LDTK-LAYER-001".into(),
+            code: "EMBER-LDTK-LAYER-001".into(),
             message: format!("level {} has no embedded layer instances", level.identifier),
         });
         return Ok(scene);

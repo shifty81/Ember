@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "ember.foundation.implementation.v1",
+  "parent_baseline": "5e04e8f81dd92e5d887d763a35b8a87078e74114",
+  "passes": [
+    {"id": "EMB-FND-01", "state": "candidate"},
+    {"id": "EMB-FND-02", "state": "candidate"},
+    {"id": "EMB-FND-03", "state": "candidate"},
+    {"id": "EMB-FND-04", "state": "candidate"},
+    {"id": "EMB-FND-05", "state": "candidate"},
+    {"id": "EMB-FND-06", "state": "candidate"},
+    {"id": "EMB-FND-07", "state": "candidate"},
+    {"id": "EMB-FND-08", "state": "candidate"},
+    {"id": "EMB-FND-09", "state": "candidate"},
+    {"id": "EMB-FND-10", "state": "candidate"}
+  ],
+  "promotion_rule": "Promote a pass to certified only after the local FULL quality gate and matching GitHub CI are both green."
+}

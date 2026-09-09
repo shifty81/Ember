@@ -1,11 +1,13 @@
-//! Unified, renderer-independent Ember Editor application shell.
+//! Renderer-independent Ember Editor application shell.
 //!
-//! The shell owns project/document/workspace routing. A native window backend
-//! renders this model, but must not become the authority for project state.
+//! Native backends render and feed input into this model; they do not own
+//! project, document, selection, command or runtime state.
 
 use ember_core::{Diagnostic, StableId};
-use ember_documents::{DocumentEnvelope, DocumentKind, DocumentRegistry};
-use ember_editor_core::{EditorContext, WorkspaceRegistry};
+use ember_documents::{DocumentEnvelope, DocumentKind, DocumentRegistry, DocumentStore};
+use ember_editor_core::{
+    register_standard_workspaces, EditorContext, EditorServices, WorkspaceRegistry,
+};
 use ember_project::{ProjectError, ProjectManifest};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, VecDeque};
@@ -53,7 +55,7 @@ pub struct DocumentTab {
     pub pinned: bool,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub enum StatusKind {
     Ready,
     Working,
@@ -96,11 +98,12 @@ impl Default for EditorLayout {
     }
 }
 
-pub struct FoundryShell {
+pub struct EmberShell {
     pub project: Option<ProjectManifest>,
     pub project_manifest_path: Option<PathBuf>,
     pub documents: DocumentRegistry,
     pub editor: EditorContext,
+    pub services: EditorServices,
     pub workspaces: WorkspaceRegistry,
     pub tabs: Vec<DocumentTab>,
     pub active_tab: Option<StableId>,
@@ -111,14 +114,20 @@ pub struct FoundryShell {
     document_paths: BTreeMap<StableId, PathBuf>,
 }
 
-impl Default for FoundryShell {
+/// Compatibility alias retained for the first Ember migration window.
+pub type FoundryShell = EmberShell;
+
+impl Default for EmberShell {
     fn default() -> Self {
+        let mut workspaces = WorkspaceRegistry::default();
+        register_standard_workspaces(&mut workspaces);
         Self {
             project: None,
             project_manifest_path: None,
             documents: DocumentRegistry::default(),
             editor: EditorContext::default(),
-            workspaces: WorkspaceRegistry::default(),
+            services: EditorServices::standard(),
+            workspaces,
             tabs: Vec::new(),
             active_tab: None,
             menus: default_menus(),
@@ -133,7 +142,7 @@ impl Default for FoundryShell {
     }
 }
 
-impl FoundryShell {
+impl EmberShell {
     pub fn load_project(&mut self, manifest_path: &Path) -> Result<(), ProjectError> {
         let manifest = ProjectManifest::load(manifest_path)?;
         self.editor.active_project = Some(manifest.project_id.clone());
@@ -216,6 +225,94 @@ impl FoundryShell {
         true
     }
 
+    pub fn save_document(&mut self, id: &StableId) -> Result<(), String> {
+        let path = self
+            .document_paths
+            .get(id)
+            .cloned()
+            .ok_or_else(|| format!("document {id} has no save path"))?;
+        let document = self
+            .documents
+            .get(id)
+            .ok_or_else(|| format!("document {id} is not open"))?;
+        DocumentStore::save_atomic(&path, document).map_err(|error| error.to_string())?;
+        self.mark_dirty(id, false);
+        self.status = StatusMessage {
+            kind: StatusKind::Ready,
+            text: format!("Saved {path:?}"),
+        };
+        Ok(())
+    }
+
+    pub fn save_active_document(&mut self) -> Result<(), String> {
+        let id = self
+            .active_tab
+            .clone()
+            .ok_or_else(|| "no active document".to_string())?;
+        self.save_document(&id)
+    }
+
+    pub fn save_all_documents(&mut self) -> Result<usize, String> {
+        let ids: Vec<_> = self
+            .tabs
+            .iter()
+            .filter(|tab| tab.dirty && self.document_paths.contains_key(&tab.document_id))
+            .map(|tab| tab.document_id.clone())
+            .collect();
+        for id in &ids {
+            self.save_document(id)?;
+        }
+        Ok(ids.len())
+    }
+
+    pub fn dispatch(&mut self, command: &ShellCommand) -> Result<String, String> {
+        match command {
+            ShellCommand::SaveActiveDocument => {
+                self.save_active_document()?;
+                Ok("saved active document".into())
+            }
+            ShellCommand::SaveAllDocuments => {
+                let count = self.save_all_documents()?;
+                Ok(format!("saved {count} document(s)"))
+            }
+            ShellCommand::OpenWorkspace(id) => {
+                if !self.workspaces.activate(id, &mut self.editor) {
+                    return Err(format!("workspace {id} is unavailable"));
+                }
+                self.layout.active_workspace = Some(id.clone());
+                Ok(format!("opened workspace {id}"))
+            }
+            ShellCommand::OpenDocument(id) => {
+                if self.activate_document(id) {
+                    Ok(format!("opened document {id}"))
+                } else {
+                    Err(format!("document {id} is not open"))
+                }
+            }
+            ShellCommand::CloseDocument(id) => {
+                self.close_document(id, false)?;
+                Ok(format!("closed document {id}"))
+            }
+            ShellCommand::ValidateProject => {
+                let errors = self.diagnostics();
+                if errors.is_empty() {
+                    Ok("project validation has no document diagnostics".into())
+                } else {
+                    Err(format!("project has {} diagnostic(s)", errors.len()))
+                }
+            }
+            ShellCommand::RunCurrentScene => Ok("play-test requested".into()),
+            ShellCommand::BuildProject => Ok("build requested".into()),
+            ShellCommand::Undo => Ok("undo routed to active workspace command history".into()),
+            ShellCommand::Redo => Ok("redo routed to active workspace command history".into()),
+            ShellCommand::NewProject
+            | ShellCommand::OpenProject
+            | ShellCommand::ImportAsset
+            | ShellCommand::ImportLdtk
+            | ShellCommand::Custom(_) => Ok("command accepted by Ember application service".into()),
+        }
+    }
+
     pub fn diagnostics(&self) -> Vec<Diagnostic> {
         let mut diagnostics = self.documents.validate();
         diagnostics.extend(self.editor.diagnostics.clone());
@@ -294,14 +391,10 @@ mod tests {
     use super::*;
     use serde_json::json;
 
-    fn id(kind: &str, value: &str) -> StableId {
-        StableId::new(kind, value).expect("valid id")
-    }
-
     #[test]
     fn insert_document_opens_and_activates_tab() {
-        let mut shell = FoundryShell::default();
-        let document_id = id("document", "scene-one");
+        let mut shell = EmberShell::default();
+        let document_id = StableId::new("document", "scene-one").unwrap();
         shell.insert_document(
             DocumentEnvelope {
                 format_version: 1,

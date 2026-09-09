@@ -1,0 +1,15 @@
+{
+  "format_version": 1,
+  "project_id": "project:ember_certification",
+  "name": "Ember Certification Project",
+  "startup_scene": "level:certification",
+  "content_roots": [
+    "content"
+  ],
+  "enabled_packages": [],
+  "package_roots": [
+    "packages"
+  ],
+  "asset_catalog": "content/assets.json",
+  "build_profiles": []
+}

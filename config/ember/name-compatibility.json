@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "active_product": "Ember",
+  "rules": [
+    {
+      "token": "FoundryShell",
+      "classification": "compatibility_alias",
+      "replacement": "EmberShell"
+    },
+    {
+      "token": "O2D-*",
+      "classification": "legacy_diagnostic_namespace",
+      "replacement": "EMBER-*"
+    },
+    {
+      "token": "Open2D",
+      "classification": "donor_or_migration_only",
+      "allowed_roots": [
+        "reference/donor",
+        "docs/migration"
+      ]
+    },
+    {
+      "token": "Havenwild",
+      "classification": "donor_or_migration_only",
+      "allowed_roots": [
+        "reference/donor",
+        "docs/migration"
+      ]
+    },
+    {
+      "token": "Forge",
+      "classification": "legacy_project_operations_name",
+      "replacement": "Project Control Center"
+    }
+  ]
+}

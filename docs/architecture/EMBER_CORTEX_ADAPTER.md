@@ -10,7 +10,7 @@ Cortex
   | plugin discovery + JSON-RPC/MCP-compatible messages
   v
 Ember Cortex Adapter
-  |---------------------> Forge machine API / CLI
+  |---------------------> PCC machine API / CLI
   |---------------------> Ember editor IPC
   `---------------------> Ember project/document metadata
 ```
@@ -18,7 +18,7 @@ Ember Cortex Adapter
 ## Adapter responsibilities
 
 - identify the Ember project and schema versions;
-- expose safe project operations already owned by Forge;
+- expose safe project operations already owned by the Project Control Center;
 - expose editor state/actions through Ember editor IPC;
 - stream structured operation state/events;
 - return artifacts/log/evidence references;
@@ -55,7 +55,7 @@ ember.logs.latest
 ember.artifacts.list
 ```
 
-Project operations are delegated to Forge. The adapter MUST NOT reimplement build, Git, patch, rollback, health, or packaging logic.
+Project operations are delegated to the Project Control Center. The adapter MUST NOT reimplement build, Git, patch, rollback, health, or packaging logic.
 
 ## Transport
 
@@ -78,7 +78,7 @@ Every session starts with:
   "protocol_version": "1.0",
   "project_schema": "1",
   "capabilities": [],
-  "forge_contract": "1"
+  "pcc_contract": "1"
 }
 ```
 

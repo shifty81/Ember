@@ -54,8 +54,13 @@ pub enum CaptureKind {
 pub fn write_snapshot(session_dir: &Path, snapshot: &RuntimeStateSnapshot) -> Result<(), String> {
     fs::create_dir_all(session_dir).map_err(|e| e.to_string())?;
     let path = session_dir.join("runtime_state.json");
+    let temp = session_dir.join("runtime_state.json.tmp");
     let bytes = serde_json::to_vec_pretty(snapshot).map_err(|e| e.to_string())?;
-    fs::write(path, bytes).map_err(|e| e.to_string())
+    fs::write(&temp, bytes).map_err(|e| e.to_string())?;
+    if path.exists() {
+        fs::remove_file(&path).map_err(|e| e.to_string())?;
+    }
+    fs::rename(temp, path).map_err(|e| e.to_string())
 }
 
 pub fn read_snapshot(session_dir: &Path) -> Result<RuntimeStateSnapshot, String> {

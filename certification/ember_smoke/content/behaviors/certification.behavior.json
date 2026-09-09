@@ -1,0 +1,27 @@
+{
+  "id": "behavior:certification_start",
+  "entry": "node:start",
+  "nodes": {
+    "node:start": {
+      "kind": "EventStart",
+      "next": [
+        "node:set"
+      ]
+    },
+    "node:set": {
+      "kind": {
+        "SetNumber": {
+          "key": "started",
+          "value": 1.0
+        }
+      },
+      "next": [
+        "node:end"
+      ]
+    },
+    "node:end": {
+      "kind": "End",
+      "next": []
+    }
+  }
+}

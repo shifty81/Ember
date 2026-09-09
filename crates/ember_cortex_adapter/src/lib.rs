@@ -1,3 +1,4 @@
+use ember_capabilities::CapabilityCatalog;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::BTreeMap;
@@ -19,18 +20,18 @@ pub struct Handshake {
     pub protocol: String,
     pub protocol_version: String,
     pub project_schema: String,
-    pub forge_contract: String,
+    pub pcc_contract: String,
     pub capabilities: Vec<String>,
 }
 
 impl Handshake {
-    pub fn ember(capabilities: Vec<String>) -> Self {
+    pub fn ember(catalog: &CapabilityCatalog) -> Self {
         Self {
             protocol: ADAPTER_PROTOCOL.to_owned(),
             protocol_version: ADAPTER_PROTOCOL_VERSION.to_owned(),
             project_schema: "1".to_owned(),
-            forge_contract: "1".to_owned(),
-            capabilities,
+            pcc_contract: "1".to_owned(),
+            capabilities: catalog.certified_ids(),
         }
     }
 }
@@ -64,6 +65,5 @@ pub struct ToolResult {
     pub trace_id: Option<String>,
 }
 
-// Deliberately no dependency on cortex_* crates.
-// Transport/process bindings belong in the Ember-owned adapter executable once
-// Cortex's standalone plugin SDK is versioned and published.
+// No dependency on Cortex implementation crates. Executable transports remain
+// unavailable until the standalone Cortex plugin SDK is certified.

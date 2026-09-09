@@ -8,4 +8,5 @@ license.workspace = true
 ember_runtime = { path = "../../crates/ember_runtime" }
 ember_level = { path = "../../crates/ember_level" }
 ember_runtime_bridge = { path = "../../crates/ember_runtime_bridge" }
+ember_session = { path = "../../crates/ember_session" }
 serde_json.workspace = true

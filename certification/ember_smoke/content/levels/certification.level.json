@@ -1,0 +1,149 @@
+{
+  "scene": {
+    "id": "level:certification",
+    "name": "Certification",
+    "width_pixels": 320,
+    "height_pixels": 180,
+    "world_origin": [
+      0,
+      0,
+      0
+    ],
+    "layers": [
+      {
+        "id": "layer:ground",
+        "name": "Ground",
+        "kind": "Tiles",
+        "grid_size": 16,
+        "visible": true,
+        "opacity": 1.0,
+        "z_index": 0,
+        "tile_cells": [
+          {
+            "grid": [
+              0,
+              0,
+              0
+            ],
+            "source_pixels": [
+              0,
+              0
+            ],
+            "tile_id": 0,
+            "transform": {
+              "flip_x": false,
+              "flip_y": false,
+              "transpose": false
+            },
+            "tileset": "asset:certification_tileset"
+          }
+        ],
+        "semantic_cells": [],
+        "properties": {}
+      },
+      {
+        "id": "layer:semantic",
+        "name": "Semantic",
+        "kind": "SemanticGrid",
+        "grid_size": 16,
+        "visible": true,
+        "opacity": 1.0,
+        "z_index": 1,
+        "tile_cells": [],
+        "semantic_cells": [
+          {
+            "grid": [
+              0,
+              0,
+              0
+            ],
+            "value": 1,
+            "semantic": {
+              "material": null,
+              "collision": "Solid",
+              "navigation_cost": 1.0,
+              "tags": [],
+              "behavior_graphs": [],
+              "properties": {}
+            }
+          }
+        ],
+        "properties": {}
+      }
+    ],
+    "entities": [
+      {
+        "id": "entity:certification_actor",
+        "definition": "entity_definition:certification_actor",
+        "name": "Certification Actor",
+        "transform": {
+          "position": [
+            16.0,
+            16.0,
+            0.0
+          ],
+          "rotation_degrees": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "components": [],
+        "behavior_graphs": [
+          "behavior:certification_start"
+        ],
+        "tags": [],
+        "properties": {}
+      }
+    ],
+    "properties": {}
+  },
+  "definitions": {
+    "semantic_values": [
+      {
+        "id": "semantic:solid",
+        "value": 1,
+        "name": "Solid",
+        "display_color_rgba": [
+          255,
+          0,
+          0,
+          180
+        ],
+        "binding": {
+          "material": null,
+          "collision": "Solid",
+          "navigation_cost": 1.0,
+          "tags": [],
+          "behavior_graphs": [],
+          "properties": {}
+        }
+      }
+    ],
+    "entity_definitions": [
+      {
+        "id": "entity_definition:certification_actor",
+        "name": "Certification Actor",
+        "size_pixels": [
+          16,
+          16
+        ],
+        "tags": [],
+        "default_properties": {},
+        "default_behavior_graphs": [
+          "behavior:certification_start"
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "default_grid_size": 16,
+    "background_rgba": [
+      32,
+      32,
+      32,
+      255
+    ],
+    "elevation_step_pixels": 16
+  }
+}

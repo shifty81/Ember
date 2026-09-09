@@ -20,3 +20,11 @@ jobs:
         run: cargo test --workspace
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Architecture validation
+        run: cargo run -p ember_validation --bin ember_validate -- architecture .
+      - name: Certification vertical slice
+        run: cargo test -p ember_tools --test certification
+      - name: Build editor
+        run: cargo build -p ember_editor
+      - name: Build runtime host
+        run: cargo build -p ember_runtime_host

@@ -11,6 +11,7 @@
     "full-gate",
     "commit-push-green"
   ],
+  "capability_catalog": "config/ember/capabilities.json",
   "capabilities": [
     "status",
     "full-gate",
@@ -25,7 +26,9 @@
     "transactional-recovery",
     "debug-bundle",
     "source-snapshot",
-    "dependency-bootstrap"
+    "dependency-bootstrap",
+    "architecture-validation",
+    "certification-smoke"
   ],
   "artifacts_root": "artifacts"
 }

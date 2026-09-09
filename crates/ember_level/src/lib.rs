@@ -1,6 +1,6 @@
 //! Native Ember level-authoring model.
 //!
-//! This crate owns the editable level semantics used by Foundry. LDtk is an
+//! This crate owns the editable level semantics used by Ember Editor. LDtk is an
 //! interchange/reference source only; the authoring model here is Ember-owned.
 
 use ember_commands::{Command, CommandError};
@@ -518,10 +518,37 @@ pub fn save_level_json(
         return Err(LevelIoError::Invalid(errors));
     }
     let bytes = serde_json::to_vec_pretty(level)?;
-    if let Some(parent) = path.as_ref().parent() {
+    let path = path.as_ref();
+    if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent)?;
     }
-    std::fs::write(path, bytes)?;
+    let file_name = path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .unwrap_or("level");
+    let temp = path.with_file_name(format!(".{file_name}.ember-level.tmp"));
+    std::fs::write(&temp, bytes)?;
+    if path.exists() {
+        #[cfg(windows)]
+        {
+            let backup = path.with_extension("ember-level.bak");
+            let _ = std::fs::remove_file(&backup);
+            std::fs::rename(path, &backup)?;
+            match std::fs::rename(&temp, path) {
+                Ok(()) => {
+                    let _ = std::fs::remove_file(backup);
+                }
+                Err(error) => {
+                    let _ = std::fs::rename(backup, path);
+                    return Err(LevelIoError::Io(error));
+                }
+            }
+        }
+        #[cfg(not(windows))]
+        std::fs::rename(&temp, path)?;
+    } else {
+        std::fs::rename(&temp, path)?;
+    }
     Ok(())
 }
 

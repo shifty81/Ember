@@ -9,22 +9,25 @@
     "remote": "https://github.com/shifty81/Ember.git",
     "default_branch": "main"
   },
+  "capability_catalog": "config/ember/capabilities.json",
   "capabilities": [
     "build",
     "test",
     "validate",
     "run",
-    "package",
     "git",
     "artifacts",
     "debug-bundle",
     "source-refresh",
-    "cortex-adapter",
     "project-control-center",
     "green-gate",
     "patch-intake",
     "transactional-recovery",
-    "dependency-bootstrap"
+    "dependency-bootstrap",
+    "packages",
+    "jobs",
+    "session",
+    "asset-catalog"
   ],
   "commands": {
     "build.editor": {
@@ -48,6 +51,29 @@
       "args": [
         "test",
         "--workspace"
+      ]
+    },
+    "test.certification": {
+      "program": "cargo",
+      "args": [
+        "test",
+        "-p",
+        "ember_tools",
+        "--test",
+        "certification"
+      ]
+    },
+    "validate.architecture": {
+      "program": "cargo",
+      "args": [
+        "run",
+        "-p",
+        "ember_validation",
+        "--bin",
+        "ember_validate",
+        "--",
+        "architecture",
+        "."
       ]
     },
     "check": {

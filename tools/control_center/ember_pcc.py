@@ -43,6 +43,11 @@ REQUIRED_ROOT = (
     "tools/control_center/ember_pcc.py",
     "apps/ember_editor/Cargo.toml",
     "apps/ember_runtime_host/Cargo.toml",
+    "config/ember/capabilities.json",
+    "crates/ember_packages/Cargo.toml",
+    "crates/ember_jobs/Cargo.toml",
+    "crates/ember_session/Cargo.toml",
+    "certification/ember_smoke/ember.project.json",
 )
 
 
@@ -367,10 +372,13 @@ class PCC:
         self.print_status("PASS", "Git/Cargo/Rust toolchain available")
 
         steps = [
-            ("Cargo fmt", ["cargo", "fmt", "--all", "--", "--check"]),
+            ("Cargo fmt apply", ["cargo", "fmt", "--all"]),
+            ("Cargo fmt check", ["cargo", "fmt", "--all", "--", "--check"]),
             ("Cargo check", ["cargo", "check", "--workspace", "--all-targets"]),
             ("Cargo test", ["cargo", "test", "--workspace"]),
             ("Clippy strict", ["cargo", "clippy", "--workspace", "--all-targets", "--", "-D", "warnings"]),
+            ("Architecture validation", ["cargo", "run", "-p", "ember_validation", "--bin", "ember_validate", "--", "architecture", "."]),
+            ("Certification vertical slice", ["cargo", "test", "-p", "ember_tools", "--test", "certification"]),
             ("Build editor", ["cargo", "build", "-p", "ember_editor"]),
             ("Build runtime", ["cargo", "build", "-p", "ember_runtime_host"]),
         ]
@@ -1064,6 +1072,8 @@ def parse_args() -> argparse.Namespace:
     group.add_argument("--run-editor", action="store_true")
     group.add_argument("--run-runtime", action="store_true")
     group.add_argument("--install-dependencies", action="store_true")
+    group.add_argument("--architecture-validate", action="store_true")
+    group.add_argument("--certification", action="store_true")
     parser.add_argument("--message", help="Commit message for --commit-push-green")
     return parser.parse_args()
 
@@ -1076,7 +1086,7 @@ def main() -> int:
         for name in (
             "status", "full_gate", "commit_push_green", "git_repair", "patch_intake",
             "debug_bundle", "source_snapshot", "build_editor", "build_runtime", "run_editor",
-            "run_runtime", "install_dependencies"
+            "run_runtime", "install_dependencies", "architecture_validate", "certification"
         )
     )
     pcc = PCC(root, noninteractive=noninteractive)
@@ -1102,6 +1112,10 @@ def main() -> int:
         if args.run_editor: return 0 if pcc.run_target("ember_editor") else 1
         if args.run_runtime: return 0 if pcc.run_target("ember_runtime_host") else 1
         if args.install_dependencies: return 0 if pcc.install_dependencies() else 1
+        if args.architecture_validate:
+            return pcc.run(["cargo", "run", "-p", "ember_validation", "--bin", "ember_validate", "--", "architecture", "."]).returncode
+        if args.certification:
+            return pcc.run(["cargo", "test", "-p", "ember_tools", "--test", "certification"]).returncode
         return pcc.interactive()
     except KeyboardInterrupt:
         print("\nCancelled.")

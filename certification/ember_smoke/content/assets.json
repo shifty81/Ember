@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "project_id": "project:ember_certification",
+  "mounts": [
+    {
+      "id": "mount:project",
+      "kind": "project",
+      "root": "content",
+      "writable": true,
+      "authoritative": true
+    }
+  ],
+  "records": [
+    {
+      "id": "asset:certification_tileset",
+      "kind": "Tileset",
+      "source": "content/pixel/certification.pixel.json",
+      "provider": "provider:project",
+      "revision": "1",
+      "dependencies": [],
+      "attribution": [],
+      "source_hash": null,
+      "derived_from": null,
+      "authoritative": true
+    },
+    {
+      "id": "asset:certification_level",
+      "kind": "Scene",
+      "source": "content/levels/certification.level.json",
+      "provider": "provider:project",
+      "revision": "1",
+      "dependencies": [
+        "asset:certification_tileset"
+      ],
+      "attribution": [],
+      "source_hash": null,
+      "derived_from": null,
+      "authoritative": true
+    },
+    {
+      "id": "asset:certification_behavior",
+      "kind": "BehaviorGraph",
+      "source": "content/behaviors/certification.behavior.json",
+      "provider": "provider:project",
+      "revision": "1",
+      "dependencies": [],
+      "attribution": [],
+      "source_hash": null,
+      "derived_from": null,
+      "authoritative": true
+    }
+  ]
+}

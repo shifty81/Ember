@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "project_id": "ember",
+  "capabilities": [
+    {
+      "id": "project.status",
+      "version": 1,
+      "state": "certified",
+      "owner": "pcc",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "PROJECT_CONTROL_CENTER.cmd --status"
+      ]
+    },
+    {
+      "id": "project.capabilities",
+      "version": 1,
+      "state": "certified",
+      "owner": "ember_capabilities",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "config/ember/capabilities.json"
+      ]
+    },
+    {
+      "id": "gate.full",
+      "version": 1,
+      "state": "certified",
+      "owner": "pcc",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [
+        "windows"
+      ],
+      "dependencies": [],
+      "evidence": [
+        "PROJECT_CONTROL_CENTER.cmd --full-gate"
+      ]
+    },
+    {
+      "id": "build.editor",
+      "version": 1,
+      "state": "certified",
+      "owner": "pcc",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "cargo build -p ember_editor"
+      ]
+    },
+    {
+      "id": "build.runtime",
+      "version": 1,
+      "state": "certified",
+      "owner": "pcc",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "cargo build -p ember_runtime_host"
+      ]
+    },
+    {
+      "id": "test.workspace",
+      "version": 1,
+      "state": "certified",
+      "owner": "pcc",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "cargo test --workspace"
+      ]
+    },
+    {
+      "id": "validate.architecture",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_validation",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [
+        "project.capabilities"
+      ],
+      "evidence": [
+        "cargo run -p ember_validation --bin ember_validate -- architecture ."
+      ]
+    },
+    {
+      "id": "packages.resolve",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_packages",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "ember_packages unit tests"
+      ]
+    },
+    {
+      "id": "jobs.submit",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_jobs",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "ember_jobs unit tests"
+      ]
+    },
+    {
+      "id": "editor.native_host",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_editor",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "dependencies": [],
+      "evidence": [
+        "apps/ember_editor"
+      ]
+    },
+    {
+      "id": "runtime.session.stdio",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_session",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "ember_session tests"
+      ]
+    },
+    {
+      "id": "assets.catalog",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_assets",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "ember_assets tests"
+      ]
+    },
+    {
+      "id": "editor.save",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_app_shell",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [],
+      "evidence": [
+        "document atomic save tests"
+      ]
+    },
+    {
+      "id": "editor.play_test",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_session",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [
+        "windows"
+      ],
+      "dependencies": [
+        "runtime.session.stdio"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "assets.vault",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_assets",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [
+        "assets.catalog"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "terrain.composer",
+      "version": 1,
+      "state": "declared",
+      "owner": "ember_world",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [
+        "jobs.submit",
+        "assets.catalog"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "editor.runtime.named_pipe",
+      "version": 1,
+      "state": "declared",
+      "owner": "ember_session",
+      "mutation": true,
+      "requires_approval": false,
+      "platforms": [
+        "windows"
+      ],
+      "dependencies": [
+        "runtime.session.stdio"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "cortex.adapter.transport",
+      "version": 1,
+      "state": "declared",
+      "owner": "ember_cortex_adapter",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [
+        "project.capabilities"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "certification.smoke",
+      "version": 1,
+      "state": "candidate",
+      "owner": "ember_tools",
+      "mutation": false,
+      "requires_approval": false,
+      "platforms": [],
+      "dependencies": [
+        "packages.resolve",
+        "runtime.session.stdio",
+        "assets.catalog"
+      ],
+      "evidence": [
+        "certification/ember_smoke"
+      ]
+    }
+  ]
+}

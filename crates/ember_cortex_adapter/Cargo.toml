@@ -5,5 +5,6 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+ember_capabilities = { path = "../ember_capabilities" }
 serde.workspace = true
 serde_json.workspace = true

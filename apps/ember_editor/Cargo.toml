@@ -10,4 +10,8 @@ ember_project = { path = "../../crates/ember_project" }
 ember_documents = { path = "../../crates/ember_documents" }
 ember_editor_core = { path = "../../crates/ember_editor_core" }
 ember_app_shell = { path = "../../crates/ember_app_shell" }
+ember_canvas = { path = "../../crates/ember_canvas" }
+ember_jobs = { path = "../../crates/ember_jobs" }
+ember_session = { path = "../../crates/ember_session" }
 serde_json.workspace = true
+macroquad.workspace = true
