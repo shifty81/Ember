@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "ember.architecture.baseline.v1",
+  "date": "2026-09-08",
+  "baseline_commit": "5d092565324d6726619a001331c6d5d86d3c50ea",
+  "product": {
+    "id": "ember",
+    "kind": "integrated-rust-game-authoring-suite",
+    "dimensions": [
+      "2d",
+      "2.5d",
+      "3d"
+    ],
+    "editor_first": true,
+    "cortex_optional": true,
+    "project_control_center_local_authority": true
+  },
+  "required_foundation_spines": [
+    "documents-storage",
+    "packages-modules",
+    "background-jobs",
+    "native-editor-host",
+    "application-command-services",
+    "editor-runtime-session-pie",
+    "assets-vault",
+    "capability-certification",
+    "validation-aggregation",
+    "runtime-systems"
+  ],
+  "dependency_rules": {
+    "cortex_implementation_in_active_workspace": false,
+    "donor_reference_in_active_workspace": false,
+    "native_ui_owns_project_state": false,
+    "runtime_depends_on_editor_ui": false,
+    "heavy_editor_work_on_ui_thread": false
+  },
+  "next_passes": [
+    "EMB-FND-01",
+    "EMB-FND-02",
+    "EMB-FND-03",
+    "EMB-FND-04",
+    "EMB-FND-05",
+    "EMB-FND-06",
+    "EMB-FND-07",
+    "EMB-FND-08",
+    "EMB-FND-09",
+    "EMB-FND-10"
+  ]
+}
