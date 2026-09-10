@@ -9,6 +9,8 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::Path;
 
+const CERTIFIED_RUST_TOOLCHAIN: &str = "1.95.0";
+
 pub struct ValidationReport {
     pub diagnostics: Vec<Diagnostic>,
 }
@@ -62,7 +64,10 @@ pub fn validate_architecture(root: &Path) -> ValidationReport {
     let mut diagnostics = Vec::new();
     let required = [
         "Cargo.toml",
+        "Cargo.lock",
+        "rust-toolchain.toml",
         "forge.project.json",
+        "project.control.json",
         "project-control-center.profile.json",
         "config/ember/capabilities.json",
         "integrations/cortex/adapter.json",
@@ -88,22 +93,75 @@ pub fn validate_architecture(root: &Path) -> ValidationReport {
             "donor editor is present in the active Cargo workspace",
         ));
     }
-    for member in [
-        "ember_packages",
-        "ember_jobs",
-        "ember_session",
-        "ember_capabilities",
-    ] {
-        if !cargo.contains(member) {
+
+    let required_members = [
+        "apps/ember_editor",
+        "apps/ember_runtime_host",
+        "crates/ember_core",
+        "crates/ember_capabilities",
+        "crates/ember_project",
+        "crates/ember_packages",
+        "crates/ember_jobs",
+        "crates/ember_session",
+        "crates/ember_assets",
+        "crates/ember_documents",
+        "crates/ember_scene",
+        "crates/ember_level",
+        "crates/ember_commands",
+        "crates/ember_editor_core",
+        "crates/ember_canvas",
+        "crates/ember_pixel",
+        "crates/ember_world",
+        "crates/ember_nodes",
+        "crates/ember_runtime",
+        "crates/ember_validation",
+        "crates/ember_tools",
+        "crates/ember_ldtk",
+        "crates/ember_app_shell",
+        "crates/ember_runtime_bridge",
+        "crates/ember_cortex_adapter",
+        "crates/ember_animation",
+        "crates/ember_bridge",
+        "crates/ember_graph",
+        "crates/ember_ide",
+        "crates/ember_level_tools",
+        "crates/ember_library",
+        "crates/ember_packaging",
+        "crates/ember_spatial",
+        "crates/ember_studios",
+        "crates/ember_terrain",
+    ];
+    for member in required_members {
+        let declaration = format!("\"{member}\"");
+        if !cargo.contains(&declaration) {
             diagnostics.push(Diagnostic::error(
                 "EMBER-ARCH-003",
-                format!("workspace is missing required foundation crate {member}"),
+                format!("workspace is missing required active member {member}"),
             ));
         }
     }
 
+    let toolchain = fs::read_to_string(root.join("rust-toolchain.toml")).unwrap_or_default();
+    if !toolchain.contains(&format!("channel = \"{CERTIFIED_RUST_TOOLCHAIN}\"")) {
+        diagnostics.push(Diagnostic::error(
+            "EMBER-ARCH-012",
+            format!(
+                "rust-toolchain.toml must pin the certified toolchain {CERTIFIED_RUST_TOOLCHAIN}"
+            ),
+        ));
+    }
+
     match CapabilityCatalog::load(&root.join("config/ember/capabilities.json")) {
         Ok(catalog) => {
+            if let Some(terrain) = catalog.by_id().get("terrain.composer") {
+                if terrain.owner != "ember_terrain" {
+                    diagnostics.push(Diagnostic::error(
+                        "EMBER-ARCH-013",
+                        "terrain.composer capability owner must be ember_terrain",
+                    ));
+                }
+            }
+
             if let Ok(adapter) = read_json(&root.join("integrations/cortex/adapter.json")) {
                 let advertised: BTreeSet<String> = adapter
                     .get("capabilities")
@@ -160,6 +218,39 @@ pub fn validate_architecture(root: &Path) -> ValidationReport {
         }
     }
 
+    if let Ok(control) = read_json(&root.join("project.control.json")) {
+        let commands = control
+            .get("commands")
+            .and_then(Value::as_array)
+            .cloned()
+            .unwrap_or_default();
+
+        if commands
+            .iter()
+            .any(|command| command.get("key").and_then(Value::as_str) == Some("run.game"))
+        {
+            diagnostics.push(Diagnostic::error(
+                "EMBER-ARCH-014",
+                "run.game must not be advertised until Ember has a certified visual game runtime",
+            ));
+        }
+
+        let runtime_service_truthful = commands.iter().any(|command| {
+            command.get("key").and_then(Value::as_str) == Some("run.runtime")
+                && command
+                    .get("label")
+                    .and_then(Value::as_str)
+                    .map(|label| label.to_ascii_lowercase().contains("service"))
+                    .unwrap_or(false)
+        });
+        if !runtime_service_truthful {
+            diagnostics.push(Diagnostic::error(
+                "EMBER-ARCH-015",
+                "run.runtime must be labeled as the current headless runtime service",
+            ));
+        }
+    }
+
     for line in cargo.lines() {
         let trimmed = line.trim();
         if trimmed.contains("cortex")
@@ -170,6 +261,27 @@ pub fn validate_architecture(root: &Path) -> ValidationReport {
                 "EMBER-ARCH-009",
                 format!("unexpected Cortex workspace member: {trimmed}"),
             ));
+        }
+    }
+
+    if let Ok(entries) = fs::read_dir(root) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if !path.is_file() {
+                continue;
+            }
+            let extension = path.extension().and_then(|value| value.to_str());
+            if matches!(extension, Some("zip" | "patch" | "sha256")) {
+                diagnostics.push(Diagnostic::error(
+                    "EMBER-ARCH-016",
+                    format!(
+                        "operational transport artifact must not remain at repository root: {}",
+                        path.file_name()
+                            .and_then(|value| value.to_str())
+                            .unwrap_or("<unknown>")
+                    ),
+                ));
+            }
         }
     }
 

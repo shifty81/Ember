@@ -211,7 +211,7 @@
       "id": "terrain.composer",
       "version": 1,
       "state": "declared",
-      "owner": "ember_world",
+      "owner": "ember_terrain",
       "mutation": true,
       "requires_approval": false,
       "platforms": [],

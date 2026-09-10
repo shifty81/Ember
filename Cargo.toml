@@ -25,7 +25,17 @@ members = [
   "crates/ember_ldtk",
   "crates/ember_app_shell",
   "crates/ember_runtime_bridge",
-  "crates/ember_cortex_adapter"
+  "crates/ember_cortex_adapter",
+  "crates/ember_animation",
+  "crates/ember_bridge",
+  "crates/ember_graph",
+  "crates/ember_ide",
+  "crates/ember_level_tools",
+  "crates/ember_library",
+  "crates/ember_packaging",
+  "crates/ember_spatial",
+  "crates/ember_studios",
+  "crates/ember_terrain"
 ]
 
 [workspace.package]

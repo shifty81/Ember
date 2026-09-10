@@ -8,9 +8,9 @@
   "stateDirectory": "artifacts/quality-gates",
   "root_control_center": {
     "launcher": "PROJECT_CONTROL_CENTER.cmd",
-    "machine_provider": "PROJECT_CONTROL_CENTER.cmd",
     "authority": "project-local",
-    "patch_intake": "before-mutating-operations"
+    "patch_intake": "before-mutating-operations",
+    "provider_kind": "registered-command-contract"
   },
   "commands": [
     {
@@ -103,7 +103,7 @@
     },
     {
       "key": "build.runtime",
-      "label": "Build Ember runtime host",
+      "label": "Build Ember runtime service",
       "program": "PROJECT_CONTROL_CENTER.cmd",
       "args": [
         "--build-runtime"
@@ -125,18 +125,7 @@
     },
     {
       "key": "run.runtime",
-      "label": "Run Ember runtime host",
-      "program": "PROJECT_CONTROL_CENTER.cmd",
-      "args": [
-        "--run-runtime"
-      ],
-      "category": "run",
-      "mutates": true,
-      "requiresConfirmation": false
-    },
-    {
-      "key": "run.game",
-      "label": "Run Ember runtime host",
+      "label": "Run Ember runtime service (headless)",
       "program": "PROJECT_CONTROL_CENTER.cmd",
       "args": [
         "--run-runtime"

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "ember.foundation.closure.v1",
+  "baseline_commit": "674abe357a88250876f4216b35d59295416a87ef",
+  "authority": "GitHub main + local GREEN handoff",
+  "passes": [
+    {
+      "id": "EMBER-CLOSE-01A-AUTHORITY-TRUTH",
+      "state": "candidate"
+    },
+    {
+      "id": "EMBER-CLOSE-01B-DEPENDENCY-CERTIFICATION",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-02-EDITOR-SUBSTRATE",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-03-PROPERTY-REGISTRY",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-04-DOCUMENT-SESSION",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-05-RESOURCE-PIPELINE",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-06-PREFABS",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-07-JOBS-V2",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-08-SESSION-V2",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-09-RUNTIME-KERNEL",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-10-RENDERER",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-11-PHYSICS-AUDIO",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-12-DEEP-CERTIFICATION",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-13-GAMEPLAY-API-PACKAGES",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-14-PROJECT-FILESYSTEM",
+      "state": "planned"
+    },
+    {
+      "id": "EMBER-CLOSE-15-CODE-LITE-FORGE",
+      "state": "planned"
+    }
+  ],
+  "code_ownership": {
+    "ember": "game authoring + Code Lite",
+    "forge": "full software IDE",
+    "cortex": "automation through public Ember/Forge/PCC contracts"
+  }
+}

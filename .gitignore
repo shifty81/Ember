@@ -9,3 +9,9 @@ __pycache__/
 *.user
 .DS_Store
 Thumbs.db
+
+# Operational transport belongs to PCC/Forge, not source authority.
+/*.patch
+/*.zip
+/*.sha256
+/LATEST_*
