@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "project": {
+    "id": "ember",
+    "name": "Ember",
+    "kind": "rust-game-authoring-suite"
+  },
+  "stateDirectory": "artifacts/quality-gates",
+  "root_control_center": {
+    "launcher": "PROJECT_CONTROL_CENTER.cmd",
+    "machine_provider": "PROJECT_CONTROL_CENTER.cmd",
+    "authority": "project-local",
+    "patch_intake": "before-mutating-operations"
+  },
+  "commands": [
+    {
+      "key": "project.status",
+      "label": "Ember project status",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--status"
+      ],
+      "category": "project",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "project.health",
+      "label": "Ember project health",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--status"
+      ],
+      "category": "project",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "gate.full",
+      "label": "Ember FULL QUALITY GATE",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--full-gate"
+      ],
+      "category": "gate",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "gate.fast",
+      "label": "Ember architecture quick gate",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--architecture-validate"
+      ],
+      "category": "gate",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "audit.architecture",
+      "label": "Validate Ember architecture",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--architecture-validate"
+      ],
+      "category": "audit",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "test.certification",
+      "label": "Run Ember certification slice",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--certification"
+      ],
+      "category": "test",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "build.native",
+      "label": "Build Ember editor",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--build-editor"
+      ],
+      "category": "build",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "build.editor",
+      "label": "Build Ember editor",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--build-editor"
+      ],
+      "category": "build",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "build.runtime",
+      "label": "Build Ember runtime host",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--build-runtime"
+      ],
+      "category": "build",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "run.editor",
+      "label": "Run Ember editor",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--run-editor"
+      ],
+      "category": "run",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "run.runtime",
+      "label": "Run Ember runtime host",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--run-runtime"
+      ],
+      "category": "run",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "run.game",
+      "label": "Run Ember runtime host",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--run-runtime"
+      ],
+      "category": "run",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "patch.status",
+      "label": "Ember patch status",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--status"
+      ],
+      "category": "patch",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "patch.apply",
+      "label": "Apply Ember validated patches",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--patch-intake"
+      ],
+      "category": "patch",
+      "mutates": true,
+      "requiresConfirmation": true
+    },
+    {
+      "key": "git.status",
+      "label": "Git status",
+      "program": "git",
+      "args": [
+        "-C",
+        "{root}",
+        "status",
+        "--short",
+        "--branch"
+      ],
+      "category": "git",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "git.history",
+      "label": "Git history",
+      "program": "git",
+      "args": [
+        "-C",
+        "{root}",
+        "log",
+        "--oneline",
+        "--decorate",
+        "--graph",
+        "-20"
+      ],
+      "category": "git",
+      "mutates": false,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "git.commit-green",
+      "label": "Commit and push current Ember GREEN",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--commit-push-green"
+      ],
+      "category": "git",
+      "mutates": true,
+      "requiresConfirmation": true
+    },
+    {
+      "key": "git.push",
+      "label": "Push current branch",
+      "program": "git",
+      "args": [
+        "-C",
+        "{root}",
+        "push"
+      ],
+      "category": "git",
+      "mutates": true,
+      "requiresConfirmation": true
+    },
+    {
+      "key": "git.pull",
+      "label": "Pull main fast-forward only",
+      "program": "git",
+      "args": [
+        "-C",
+        "{root}",
+        "pull",
+        "--ff-only",
+        "origin",
+        "main"
+      ],
+      "category": "git",
+      "mutates": true,
+      "requiresConfirmation": true
+    },
+    {
+      "key": "git.repair-working-copy",
+      "label": "Repair Ember Git authority",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--git-repair"
+      ],
+      "category": "git",
+      "mutates": true,
+      "requiresConfirmation": true
+    },
+    {
+      "key": "diagnostics.bundle",
+      "label": "Create Ember debug bundle",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--debug-bundle"
+      ],
+      "category": "diagnostics",
+      "mutates": true,
+      "requiresConfirmation": false
+    },
+    {
+      "key": "package.source-rollup",
+      "label": "Create Ember source snapshot",
+      "program": "PROJECT_CONTROL_CENTER.cmd",
+      "args": [
+        "--source-snapshot"
+      ],
+      "category": "package",
+      "mutates": true,
+      "requiresConfirmation": false
+    }
+  ],
+  "quality_gates": [
+    {
+      "key": "gate.full"
+    },
+    {
+      "key": "gate.fast"
+    },
+    {
+      "key": "audit.architecture"
+    },
+    {
+      "key": "test.certification"
+    }
+  ],
+  "full_gate_contract": {
+    "authority": "project.control.json",
+    "ordered_stages": [
+      "root-audit",
+      "dependency-preflight",
+      "cargo-fmt-apply",
+      "cargo-fmt-check",
+      "cargo-check-workspace-all-targets",
+      "cargo-test-workspace",
+      "cargo-clippy-workspace-all-targets-deny-warnings",
+      "ember-architecture-validation",
+      "ember-certification-vertical-slice",
+      "build-ember-editor",
+      "build-ember-runtime-host",
+      "source-fingerprint",
+      "handoff"
+    ]
+  },
+  "patch_contract": {
+    "current_project_format": "ember.patch.schema.v2",
+    "universal_target_format": "pcc.patch.v1",
+    "preferred_extension": ".patch",
+    "preferred_user_intake": "%USERPROFILE%\\Downloads",
+    "pre_operation_required": true,
+    "handoff": "always-after-certifying-patch"
+  }
+}

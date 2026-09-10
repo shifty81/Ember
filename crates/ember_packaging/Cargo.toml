@@ -1,0 +1,10 @@
+[package]
+name = "ember_packaging"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_core = { path = "../ember_core" }
+ember_project = { path = "../ember_project" }
+serde.workspace = true

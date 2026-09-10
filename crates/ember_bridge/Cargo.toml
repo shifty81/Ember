@@ -1,0 +1,10 @@
+[package]
+name = "ember_bridge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_capabilities = { path = "../ember_capabilities" }
+ember_cortex_adapter = { path = "../ember_cortex_adapter" }
+serde.workspace = true

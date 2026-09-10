@@ -2,22 +2,27 @@
 setlocal EnableExtensions
 cd /d "%~dp0"
 
+set "EMBER_BOOTSTRAP=%~dp0tools\control_center\pcc_bootstrap.py"
 set "EMBER_PCC=%~dp0tools\control_center\ember_pcc.py"
-if not exist "%EMBER_PCC%" (
-    echo [ERROR] Ember Project Control Center is missing:
-    echo         %EMBER_PCC%
+
+if exist "%EMBER_BOOTSTRAP%" (
+    set "EMBER_ENTRY=%EMBER_BOOTSTRAP%"
+) else if exist "%EMBER_PCC%" (
+    set "EMBER_ENTRY=%EMBER_PCC%"
+) else (
+    echo [ERROR] Ember Project Control Center is missing.
     exit /b 2
 )
 
 where py >nul 2>nul
 if not errorlevel 1 (
-    py -3 "%EMBER_PCC%" %*
+    py -3 "%EMBER_ENTRY%" %*
     exit /b %ERRORLEVEL%
 )
 
 where python >nul 2>nul
 if not errorlevel 1 (
-    python "%EMBER_PCC%" %*
+    python "%EMBER_ENTRY%" %*
     exit /b %ERRORLEVEL%
 )
 

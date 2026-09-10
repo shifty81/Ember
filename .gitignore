@@ -2,6 +2,8 @@
 /artifacts/
 /logs/
 /.ember/
+__pycache__/
+*.py[cod]
 *.tmp
 *.bak
 *.user

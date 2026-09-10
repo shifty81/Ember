@@ -69,6 +69,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ember_animation"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "ember_pixel",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "ember_app_shell"
 version = "0.1.0"
 dependencies = [
@@ -88,6 +98,15 @@ dependencies = [
  "ember_packages",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "ember_bridge"
+version = "0.1.0"
+dependencies = [
+ "ember_capabilities",
+ "ember_cortex_adapter",
+ "serde",
 ]
 
 [[package]]
@@ -162,6 +181,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "ember_graph"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "ember_nodes",
+ "serde",
+]
+
+[[package]]
+name = "ember_ide"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "serde",
+]
+
+[[package]]
 name = "ember_jobs"
 version = "0.1.0"
 dependencies = [
@@ -192,6 +228,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "ember_level_tools"
+version = "0.1.0"
+dependencies = [
+ "ember_commands",
+ "ember_core",
+ "ember_level",
+ "ember_scene",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "ember_library"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "serde",
+]
+
+[[package]]
 name = "ember_nodes"
 version = "0.1.0"
 dependencies = [
@@ -206,6 +262,15 @@ dependencies = [
  "ember_core",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "ember_packaging"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "ember_project",
+ "serde",
 ]
 
 [[package]]
@@ -272,20 +337,56 @@ dependencies = [
 ]
 
 [[package]]
+name = "ember_spatial"
+version = "0.1.0"
+dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "ember_studios"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "ember_terrain"
+version = "0.1.0"
+dependencies = [
+ "ember_core",
+ "serde",
+]
+
+[[package]]
 name = "ember_tools"
 version = "0.1.0"
 dependencies = [
+ "ember_animation",
  "ember_assets",
+ "ember_bridge",
+ "ember_capabilities",
  "ember_commands",
  "ember_core",
+ "ember_cortex_adapter",
+ "ember_graph",
+ "ember_ide",
  "ember_ldtk",
  "ember_level",
+ "ember_level_tools",
+ "ember_library",
  "ember_nodes",
  "ember_packages",
+ "ember_packaging",
  "ember_pixel",
  "ember_project",
  "ember_runtime",
  "ember_scene",
+ "ember_spatial",
+ "ember_studios",
+ "ember_terrain",
  "serde_json",
 ]
 

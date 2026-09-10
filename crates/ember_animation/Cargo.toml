@@ -1,0 +1,11 @@
+[package]
+name = "ember_animation"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ember_core = { path = "../ember_core" }
+ember_pixel = { path = "../ember_pixel" }
+serde.workspace = true
+serde_json.workspace = true

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "ember.foundation.implementation.v2",
+  "baseline_commit": "12e52cb2a2ac9d487e231e290b0140c88cddaf24",
+  "passes": [
+    {
+      "id": "EMB-FND-11",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-12",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-13",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-14",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-15",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-16",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-17",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-18",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-19",
+      "state": "candidate"
+    },
+    {
+      "id": "EMB-FND-20",
+      "state": "candidate"
+    }
+  ],
+  "certification": {
+    "workspace_test": "crates/ember_tools/tests/foundation_v2.rs",
+    "promotion_rule": "candidate -> certified only after local FULL GREEN and GitHub CI success"
+  }
+}

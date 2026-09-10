@@ -16,4 +16,16 @@ ember_commands = { path = "../ember_commands" }
 ember_nodes = { path = "../ember_nodes" }
 ember_pixel = { path = "../ember_pixel" }
 ember_runtime = { path = "../ember_runtime" }
+ember_capabilities = { path = "../ember_capabilities" }
+ember_cortex_adapter = { path = "../ember_cortex_adapter" }
+ember_terrain = { path = "../ember_terrain" }
+ember_animation = { path = "../ember_animation" }
+ember_level_tools = { path = "../ember_level_tools" }
+ember_graph = { path = "../ember_graph" }
+ember_studios = { path = "../ember_studios" }
+ember_spatial = { path = "../ember_spatial" }
+ember_ide = { path = "../ember_ide" }
+ember_bridge = { path = "../ember_bridge" }
+ember_packaging = { path = "../ember_packaging" }
+ember_library = { path = "../ember_library" }
 serde_json.workspace = true

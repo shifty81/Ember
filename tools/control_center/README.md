@@ -1,7 +1,7 @@
 # Ember Project Control Center
 
 `PROJECT_CONTROL_CENTER.cmd` is the authoritative project-local operations entry point for Ember.
-It uses `tools/control_center/ember_pcc.py` and Python's standard library only. Cortex and any shared/universal control-center runtime are optional integrations; Ember does not require them to build, validate, patch, recover, or operate its repository.
+It enters through `tools/control_center/pcc_bootstrap.py`, which owns pre-operation patch/recovery intake, then loads `tools/control_center/ember_pcc.py`. The tooling uses Python's standard library only. Cortex and any shared/universal control-center runtime are optional integrations; Ember does not require them to build, validate, patch, recover, or operate its repository.
 
 ## Primary commands
 
@@ -35,7 +35,7 @@ The FULL gate performs:
 
 ## Root-drop update packages
 
-The PCC scans repository-root ZIP files at startup. A ZIP is treated as an Ember update only when it contains one of these manifests at ZIP root:
+The PCC scans repository-root ZIP files before pending recovery plans and before every normal PCC operation. This ordering guarantees that a corrective root-drop package can repair a defective patch engine or pending recovery plan instead of being blocked by it. A ZIP is treated as an Ember update only when it contains one of these manifests at ZIP root:
 
 - `EMBER_PATCH_MANIFEST.json`
 - `ember-patch.json`
@@ -72,3 +72,17 @@ Generated operational state stays under ignored `artifacts/`:
 - `artifacts/recovery/`
 
 A failed FULL gate or update automatically creates an upload-ready debug bundle. Interactive Windows runs also open the debug-bundle folder on failure.
+
+## Patch Schema v2
+
+`EMBER_PATCH_SCHEMA_V2.json` is the normalized patch contract. Schema v2 supports exact
+Git authority preconditions, transactional reconcile operations, safe untracked recovery
+policies, allow-listed post-apply actions, PCC self-reload, and upload-ready handoffs.
+
+For recovery of an exact untracked file known to have been created by a faulty patch:
+
+- `match_hash` refuses removal if bytes changed.
+- `backup_and_remove` first stores the current bytes in the transaction recovery tree, then removes the exact path.
+- `preserve` records the file and leaves it in place.
+
+Recovery never accepts wildcards or arbitrary commands.

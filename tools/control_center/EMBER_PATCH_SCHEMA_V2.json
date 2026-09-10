@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ember.patch.schema.v2",
+  "title": "Ember Patch Manifest v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project_id",
+    "patch_id"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "project_id": {
+      "const": "ember"
+    },
+    "patch_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "remote": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "head": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "remove": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reconcile": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "unexpected_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "untracked_policy": {
+            "enum": [
+              "match_hash",
+              "backup_and_remove",
+              "preserve"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "post_apply": {
+      "type": "object",
+      "properties": {
+        "run": {
+          "enum": [
+            "none",
+            "full_gate",
+            "cargo_check",
+            "build_editor",
+            "build_runtime",
+            "certification"
+          ]
+        },
+        "handoff": {
+          "enum": [
+            "none",
+            "always",
+            "on_success",
+            "on_failure"
+          ]
+        },
+        "open_handoff": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "restart_pcc": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": true
+}

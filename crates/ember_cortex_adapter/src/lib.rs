@@ -24,14 +24,43 @@ pub struct Handshake {
     pub capabilities: Vec<String>,
 }
 
+/// Accepted capability projections for an Ember/Cortex handshake.
+///
+/// The project historically constructed handshakes from a full capability
+/// catalog. Foundation V2 also has call sites that already hold the certified
+/// capability ID projection. Supporting both forms keeps the transport
+/// boundary thin without forcing either layer to reconstruct discarded
+/// capability metadata.
+pub trait IntoHandshakeCapabilities {
+    fn into_handshake_capabilities(self) -> Vec<String>;
+}
+
+impl IntoHandshakeCapabilities for &CapabilityCatalog {
+    fn into_handshake_capabilities(self) -> Vec<String> {
+        self.certified_ids()
+    }
+}
+
+impl IntoHandshakeCapabilities for Vec<String> {
+    fn into_handshake_capabilities(self) -> Vec<String> {
+        self
+    }
+}
+
+impl IntoHandshakeCapabilities for &[String] {
+    fn into_handshake_capabilities(self) -> Vec<String> {
+        self.to_vec()
+    }
+}
+
 impl Handshake {
-    pub fn ember(catalog: &CapabilityCatalog) -> Self {
+    pub fn ember(capabilities: impl IntoHandshakeCapabilities) -> Self {
         Self {
             protocol: ADAPTER_PROTOCOL.to_owned(),
             protocol_version: ADAPTER_PROTOCOL_VERSION.to_owned(),
             project_schema: "1".to_owned(),
             pcc_contract: "1".to_owned(),
-            capabilities: catalog.certified_ids(),
+            capabilities: capabilities.into_handshake_capabilities(),
         }
     }
 }
