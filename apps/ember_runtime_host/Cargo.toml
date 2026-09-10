@@ -10,3 +10,6 @@ ember_level = { path = "../../crates/ember_level" }
 ember_runtime_bridge = { path = "../../crates/ember_runtime_bridge" }
 ember_session = { path = "../../crates/ember_session" }
 serde_json.workspace = true
+
+[dev-dependencies]
+ember_core = { path = "../../crates/ember_core" }

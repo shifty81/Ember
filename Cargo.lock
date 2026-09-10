@@ -312,6 +312,7 @@ dependencies = [
 name = "ember_runtime_host"
 version = "0.1.0"
 dependencies = [
+ "ember_core",
  "ember_level",
  "ember_runtime",
  "ember_runtime_bridge",

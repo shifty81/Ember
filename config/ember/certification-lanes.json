@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "project_id": "ember",
+  "authority": "evidence-not-product-marketing",
+  "lanes": [
+    {
+      "id": "SOURCE",
+      "required": true,
+      "state": "certified",
+      "evidence": [
+        "PROJECT_CONTROL_CENTER.cmd --full-gate"
+      ]
+    },
+    {
+      "id": "DEPENDENCY_POLICY",
+      "required": true,
+      "state": "certified",
+      "evidence": [
+        "cargo test -p ember_tools --test dependency_policy"
+      ],
+      "last_observed_gate": "QG-20260910-073030",
+      "last_observed_stage": "Cargo test",
+      "last_observed_result": "PASS"
+    },
+    {
+      "id": "DATA",
+      "required": true,
+      "state": "candidate",
+      "evidence": [
+        "cargo test -p ember_tools --test certification"
+      ]
+    },
+    {
+      "id": "RUNTIME_SERVICE",
+      "required": true,
+      "state": "certified",
+      "evidence": [
+        "cargo test -p ember_runtime_host --test stdio_session_smoke"
+      ],
+      "last_observed_gate": "QG-20260910-073030",
+      "last_observed_stage": "Cargo test",
+      "last_observed_result": "PASS"
+    },
+    {
+      "id": "EDITOR_MODEL",
+      "required": true,
+      "state": "certified",
+      "evidence": [
+        "cargo test -p ember_app_shell --test shell_truth"
+      ],
+      "last_observed_gate": "QG-20260910-073030",
+      "last_observed_stage": "Cargo test",
+      "last_observed_result": "PASS"
+    },
+    {
+      "id": "ARCHITECTURE",
+      "required": true,
+      "state": "certified",
+      "evidence": [
+        "ember_validate architecture ."
+      ]
+    },
+    {
+      "id": "TARGET_BUILDS",
+      "required": true,
+      "state": "certified",
+      "evidence": [
+        "cargo build -p ember_editor",
+        "cargo build -p ember_runtime_host"
+      ]
+    },
+    {
+      "id": "EDITOR_INTERACTION",
+      "required": false,
+      "state": "unavailable",
+      "evidence": []
+    },
+    {
+      "id": "VISUAL_RUNTIME",
+      "required": false,
+      "state": "unavailable",
+      "evidence": []
+    },
+    {
+      "id": "PIE",
+      "required": false,
+      "state": "unavailable",
+      "evidence": []
+    }
+  ]
+}

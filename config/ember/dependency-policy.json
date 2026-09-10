@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "policy_id": "ember.dependency.policy.v1",
+  "mode": "metadata-and-source-baseline",
+  "rules": {
+    "require_cargo_lock": true,
+    "require_license_or_license_file_for_third_party": true,
+    "deny_git_sources": true,
+    "allowed_registry_prefixes": [
+      "registry+https://github.com/rust-lang/crates.io-index",
+      "registry+https://index.crates.io/"
+    ],
+    "deny_external_path_dependencies": true
+  },
+  "future_hardening": [
+    "cargo-deny license expression allowlist after current dependency inventory is reviewed",
+    "RustSec advisory gate",
+    "duplicate dependency review",
+    "explicit per-crate exceptions with reason and version scope"
+  ]
+}

@@ -143,14 +143,15 @@
     {
       "id": "runtime.session.stdio",
       "version": 1,
-      "state": "candidate",
+      "state": "certified",
       "owner": "ember_session",
       "mutation": true,
       "requires_approval": false,
       "platforms": [],
       "dependencies": [],
       "evidence": [
-        "ember_session tests"
+        "apps/ember_runtime_host/tests/stdio_session_smoke.rs::stdio_runtime_service_process_round_trip_is_bounded_and_stateful",
+        "QG-20260910-073030 Cargo test PASS"
       ]
     },
     {
@@ -169,14 +170,16 @@
     {
       "id": "editor.save",
       "version": 1,
-      "state": "candidate",
+      "state": "certified",
       "owner": "ember_app_shell",
       "mutation": true,
       "requires_approval": false,
       "platforms": [],
       "dependencies": [],
       "evidence": [
-        "document atomic save tests"
+        "crates/ember_app_shell/tests/shell_truth.rs::path_backed_save_is_real_and_clears_dirty_state",
+        "crates/ember_app_shell/tests/shell_truth.rs::save_all_only_counts_dirty_documents_with_real_paths",
+        "QG-20260910-073030 Cargo test PASS"
       ]
     },
     {

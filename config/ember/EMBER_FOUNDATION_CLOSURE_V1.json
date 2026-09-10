@@ -1,16 +1,26 @@
 {
   "schema_version": 1,
   "id": "ember.foundation.closure.v1",
-  "baseline_commit": "674abe357a88250876f4216b35d59295416a87ef",
+  "baseline_commit": "375be44e3d80ecd836f9fb4dac5ed74df61577d1",
   "authority": "GitHub main + local GREEN handoff",
   "passes": [
     {
       "id": "EMBER-CLOSE-01A-AUTHORITY-TRUTH",
-      "state": "candidate"
+      "state": "certified",
+      "evidence": [
+        "375be44e3d80ecd836f9fb4dac5ed74df61577d1"
+      ]
     },
     {
       "id": "EMBER-CLOSE-01B-DEPENDENCY-CERTIFICATION",
-      "state": "planned"
+      "state": "certified",
+      "evidence": [
+        "dependency_policy integration test",
+        "runtime-host stdio subprocess integration test",
+        "app-shell save/dirty integration tests",
+        "capability_truth integration test",
+        "post-apply FULL QUALITY GATE"
+      ]
     },
     {
       "id": "EMBER-CLOSE-02-EDITOR-SUBSTRATE",
